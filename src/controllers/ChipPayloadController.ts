@@ -3,7 +3,7 @@ import { ChipPayload } from "../pipes/DataStoreSchemaV1";
 export class ChipPayloadController {
     static format(payload?: ChipPayload): string | null {
         const value = payload?.value || 0;
-        return value > 0 ? `T${this.shortNumberToString(value)}` : null;
+        return this.tournamentDenomination(value);
     }
 
     static tournamentDenomination(input?: number): string | null {
