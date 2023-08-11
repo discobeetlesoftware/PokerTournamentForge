@@ -62,7 +62,7 @@ function tournamentDenominationDescription(tournament: TournamentPayload) {
 }
 
 export const TournamentCardView = (props: TournamentCardViewProps) => {
-    const { isPreset, tournament } = props;
+    const { tournament } = props;
 
     return (
         <Card key={tournament.id} sx={{ minWidth: 275, maxWidth: 400 }}>

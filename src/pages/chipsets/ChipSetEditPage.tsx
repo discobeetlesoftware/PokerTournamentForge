@@ -59,7 +59,7 @@ const EditableChipRow = (props: { chip: ChipPayload, update: Dispatch<ChipPayloa
 };
 
 export const ChipSetEditPage = () => {
-    const data = useActionData();
+    useActionData();
     const payload = useLoaderData() as ChipSetEditPayload;
     const [chipset, updateSet] = useState(payload.chipset);
     const submit = useSubmit();

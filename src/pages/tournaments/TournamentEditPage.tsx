@@ -47,7 +47,7 @@ export const TournamentEditPage = () => {
         }
         return prev;
     });
-
+    // eslint-disable-next-line
     useEffect(() => {
         setState({
             levels: generateTournament(state, selectedSet || defaultSet)

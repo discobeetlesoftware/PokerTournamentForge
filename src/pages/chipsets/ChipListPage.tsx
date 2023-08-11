@@ -14,8 +14,7 @@ let strings = configuration.strings.en.chip_list;
 
 export const ChipListPage = () => {
     usePageTitle(strings.title);
-
-    const data = useActionData();
+    useActionData();
     const sets = useLoaderData() as ChipSetPayload[];
     const presets = sets.filter(set => set.is_preset);
     const customs = sets.filter(set => !set.is_preset);

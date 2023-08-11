@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useActionData, useFormAction, useLoaderData, useSubmit } from "react-router-dom";
+import { Link, useActionData, useLoaderData, useSubmit } from "react-router-dom";
 import { configuration } from "../../configuration";
 import HeaderView from "../../components/HeaderView";
 import { ChipPayload, TournamentPayload } from "../../pipes/DataStoreSchemaV1";
@@ -60,10 +60,10 @@ const TournamentRow = (props: { tournament: TournamentPayload, chips: ChipPayloa
 }
 
 export const ChipSetPage = () => {
+    useActionData();
     const submit = useSubmit();
     const [isDeleteStaged, setIsDeleteStaged] = useState(false);
     const { chipset, tournaments } = useLoaderData() as ChipSetLoaderResult;
-    const data = useActionData();
     const title = chipset.name?.length > 0 ? chipset.name : 'Unnamed';
     const origin = chipset.is_preset ? 'Preset' : 'Custom';
     usePageTitle(title);
