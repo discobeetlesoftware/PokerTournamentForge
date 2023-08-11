@@ -7,7 +7,6 @@ import { usePageTitle } from "../hooks/usePageTitle";
 import { ConfirmDeleteDialog } from "../components/ConfirmDeleteDialog";
 import { DataStore, PTDStoreTableNamesCurrent } from "../pipes/DataStore";
 import Button from "@mui/material/Button";
-import { CustomEvent } from "@piwikpro/react-piwik-pro";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { SecondaryBlockHeaderView } from "../components/SecondaryHeaderView";
@@ -43,7 +42,6 @@ export const SettingsPage = () => {
             setIsUpdating(true);
             const store = new DataStore();
             store.open().then(() => {
-                CustomEvent.trackEvent('settings', 'reset app state', token || '');
                 return Promise.all(PTDStoreTableNamesCurrent.filter(table => table === deleteCandidate || '*' === deleteCandidate).map(table => store.clear(table)))
             }).catch(e => {
                 console.error('Failed to delete ', token, e);

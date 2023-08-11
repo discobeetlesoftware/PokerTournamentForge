@@ -15,7 +15,6 @@ import { SettingsPage } from './pages/SettingsPage';
 import { TournamentPage } from './pages/tournaments/TournamentPage';
 import { ChipSetEditPage } from './pages/chipsets/ChipSetEditPage';
 import { ErrorPage } from './pages/ErrorPage';
-import PiwikPro from '@piwikpro/react-piwik-pro';
 import { useEffect } from 'react';
 import { settingsLoader, settingsUpdateAction } from './pipes/SettingsPipes';
 
@@ -51,16 +50,6 @@ const router = createBrowserRouter(routes, { basename: '/PokerTournamentForge' }
 
 function App() {
     usePresets();
-
-    useEffect(() => {
-        const configure = () => {
-            PiwikPro.initialize('1f7e4b4a-3271-4027-bc94-f31ce19da243', 'https://discobeetle.containers.piwik.pro');
-        }
-        const timer = setTimeout(configure, 100);
-        return () => {
-            clearTimeout(timer);
-        }
-    }, []);
 
     return (
         <ThemeProvider theme={theme}>
