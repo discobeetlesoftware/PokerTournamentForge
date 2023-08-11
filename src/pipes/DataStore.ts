@@ -49,10 +49,10 @@ export class DataStore {
                 return '';
             
             case RouteAction.read:
-                return element?.id || 'new';
+                return element?.id || this.NEW_ID;
 
             case RouteAction.forge:
-                return `${element?.id || 'new'}/forge`;
+                return `${element?.id || this.NEW_ID}/forge`;
 
             case RouteAction.share:
                 return `share?p=${HydrationController.encode(element)}`;
@@ -67,7 +67,7 @@ export class DataStore {
             return false;
         }
         const components = candidate.split('/');
-        return components[components.length - 1] === 'new';
+        return components[components.length - 1] === this.NEW_ID;
     }
 
     static route(tableName: StoreNames<PTDSchemaCurrent>, action: RouteAction, element?: ValueType): string {
