@@ -24,7 +24,7 @@ export const ChipListPage = () => {
             <Paper className='page chipset-list'>
                 <HeaderView title={strings.title} />
                 <Typography>
-                    Add your own chip sets to customize output when constructing a tournament. Though this step is optional, doing so will produce starting stack suggestions.
+                    Add your own chip sets to customize output when constructing a tournament.
                 </Typography>
 
                 <Button variant='contained' startIcon={<AddIcon />} component={Link} to={DataStore.route('chipsets', RouteAction.forge)}>{strings.actions.new}</Button>
