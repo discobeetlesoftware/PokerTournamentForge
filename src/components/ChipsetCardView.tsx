@@ -2,7 +2,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { ReactComponent as PokerChipIcon } from '../assets/pokerChip.svg';
 import { contrastColor } from 'contrast-color';
 import { ChipPayload, ChipSetPayload } from "../pipes/DataStoreSchemaV1";
-import { cssValueForColor, stringToColor } from "../models/Color";
+import { cssValueForNamedColor } from "../models/Color";
 import { DataStore, RouteAction } from "../pipes/DataStore";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
@@ -14,7 +14,7 @@ import Card from "@mui/material/Card";
 import { ChipPayloadController } from "../controllers/ChipPayloadController";
 
 const ChipView = (chip: ChipPayload) => {
-    const color = cssValueForColor(stringToColor(chip.color));
+    const color = cssValueForNamedColor(chip.color);
     return (
         <Grid item key={chip.value}>
             <Chip label={ChipPayloadController.shortNumberToString(chip.value)}

@@ -13,7 +13,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
-import { cssValueForColor, stringToColor } from "../../models/Color";
+import { cssValueForNamedColor } from "../../models/Color";
 import { contrastColor } from 'contrast-color';
 import { SecondaryBlockHeaderView } from "../../components/SecondaryHeaderView";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -31,7 +31,7 @@ let strings = configuration.strings.en.chip;
 
 const ChipRow = (props: { chip: ChipPayload }) => {
     const { chip } = props;
-    const color = cssValueForColor(stringToColor(chip.color));
+    const color = cssValueForNamedColor(chip.color);
     const textColor = contrastColor({ bgColor: color });
     return (
         <TableRow>

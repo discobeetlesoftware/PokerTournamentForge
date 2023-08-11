@@ -25,51 +25,22 @@ export enum Color {
 }
 
 type ColorIndex = '50' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
+const materialColor = colors as Record<string, { [key in ColorIndex]?: string }>;
 
 const customColors: { [key in Color]?: string } = {
     [Color.black]: colors.common.black,
     [Color.white]: colors.common.white
 };
 
-export const cssValueForNamedColor = (colorName?: string, context: ColorIndex = '500'): string => {
-    const color = stringToColor(colorName);
-    if (!color) {
-        return colors.common.white;
+export const cssValueForNamedColor = (colorName?: string, context: ColorIndex = '500', defaultColor = colors.common.white): string => {
+    if (!colorName) {
+        return defaultColor;
     }
-    if (color in colors) {
-        return (colors as any)[color][context];
+    const color = Color[colorName as keyof typeof Color];
+
+    if (color in materialColor) {
+        return materialColor[color][context] || defaultColor;
     }
 
-    if (color in customColors) {
-        return customColors[color]!;
-    }
-
-    throw new Error(`Invalid color: ${color}`);
-}
-
-export const cssValueForColor = (color: Color | undefined, context: ColorIndex = '500'): string => {
-    if (!color) {
-        return colors.common.white;
-    }
-    
-    if (color in colors) {
-        return (colors as any)[color][context];
-    }
-
-    if (color in customColors) {
-        return customColors[color]!;
-    }
-
-    throw new Error(`Invalid color: ${color}`);
-};
-
-export function stringToColor(color?: string): Color | undefined {
-    if (!color) {
-        return undefined;
-    }
-    if (color in Color) {
-        return Color[color as keyof typeof Color];
-    } else {
-        return undefined;
-    }
+    return customColors[color] || defaultColor;
 }
