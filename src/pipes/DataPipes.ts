@@ -4,7 +4,7 @@ import { StoreNames, StoreValue } from "idb";
 import { Uniquable } from "./Storable";
 import { Factory } from "./Factory";
 
-const generate = <
+export const generate = <
         StoreName extends StoreNames<PTDSchemaCurrent>,
         ValueType extends StoreValue<PTDSchemaCurrent, StoreName>
     >(tableName: StoreName, candidate?: Partial<ValueType>): NonNullable<StoreValue<PTDSchemaCurrent, StoreName>> => {
