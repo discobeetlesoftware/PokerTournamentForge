@@ -18,23 +18,6 @@ export const chipSetViewLoader = async (args: LoaderFunctionArgs): Promise<ChipS
     };
 };
 
-export const chipsetPayloadLoader = async (args: LoaderFunctionArgs): Promise<ChipSetPayload> => {
-    const { id } = args.params;
-    if (!id) {
-        throw Error('Cannot load a chip set without an id.');
-    }
-    if (DataStore.matchesNewRoute(id)) {
-        return Factory.chipSet();
-    }
-    const store = new DataStore();
-    await store.open();
-    const set = await store.getValue('chipsets', id);
-    if (!set) {
-        throw Error('Chip set not found.');
-    }
-    return set as ChipSetPayload;
-};
-
 export const chipSetEditLoader = async (args: LoaderFunctionArgs): Promise<ChipSetPayload> => {
     return await getAction('chipsets', args.params.id);;
 };
@@ -48,8 +31,7 @@ export const chipSetUpdateAction: ActionFunction = async ({ request }) => {
         data.id = 'new';
         data.is_preset = false;
     }
-    var set = Factory.chipSet(data);
-    await store.putValue('chipsets', set);
+    await store.putValue('chipsets', data);
     return redirect(DataStore.route('chipsets', RouteAction.list));
 }
 
