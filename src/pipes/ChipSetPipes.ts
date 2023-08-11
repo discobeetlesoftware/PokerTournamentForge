@@ -1,24 +1,21 @@
 import { redirect } from "react-router-dom"
 import { ActionFunction, LoaderFunctionArgs } from "react-router";
 import { DataStore, RouteAction } from "./DataStore";
-import { ChipPayload, ChipSetPayload, TournamentPayload } from "./DataStoreSchemaV1";
+import { ChipSetPayload, TournamentPayload } from "./DataStoreSchemaV1";
 import { Factory } from "./Factory";
-import { tournamentListLoader } from "./TournamentPipes";
-import { deleteAction, listAction } from "./DataPipes";
+import { deleteAction, getAction, listAction } from "./DataPipes";
 
 export const chipListLoader = async () => {
     return listAction('chipsets');
 }
 
 export type ChipSetLoaderResult = { chipset: ChipSetPayload, tournaments: TournamentPayload[] };
-export const chipSetLoader = async (args: LoaderFunctionArgs): Promise<ChipSetLoaderResult> => {
-    if (args.request.method === 'DELETE') {
-        throw Error(`Unknown method '${args.request.method}', expecting DELETE`);
-    }
-    const { id } = args.params;
-    const set = await chipsetPayloadLoader(args);
-    const tournaments = (await tournamentListLoader()).filter(tournament => tournament.set_id === set!.id);
-    return { chipset: set as ChipSetPayload, tournaments: tournaments };
+export const chipSetViewLoader = async (args: LoaderFunctionArgs): Promise<ChipSetLoaderResult> => {
+    const chipset = await getAction('chipsets', args.params.id);
+    return {
+        chipset: chipset,
+        tournaments: (await listAction('tournaments')).filter(tournament => tournament.set_id === chipset.id)
+    };
 };
 
 export const chipsetPayloadLoader = async (args: LoaderFunctionArgs): Promise<ChipSetPayload> => {
@@ -38,11 +35,8 @@ export const chipsetPayloadLoader = async (args: LoaderFunctionArgs): Promise<Ch
     return set as ChipSetPayload;
 };
 
-export type ChipSetEditPayload = { chipset: ChipSetPayload };
-export const chipSetEditLoader = async (args: LoaderFunctionArgs): Promise<ChipSetEditPayload> => {
-    const { id } = args.params;
-    const set = await chipsetPayloadLoader(args);
-    return { chipset: set as ChipSetPayload };
+export const chipSetEditLoader = async (args: LoaderFunctionArgs): Promise<ChipSetPayload> => {
+    return await getAction('chipsets', args.params.id);;
 };
 
 export const chipSetUpdateAction: ActionFunction = async ({ request }) => {

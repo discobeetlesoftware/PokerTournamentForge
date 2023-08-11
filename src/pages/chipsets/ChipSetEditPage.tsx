@@ -4,10 +4,9 @@ import { Form, useActionData, useLoaderData, useParams, useSubmit } from "react-
 import { configuration } from "../../configuration";
 import LocalizationController from "../../controllers/LocalizationController";
 import HeaderView from "../../components/HeaderView";
-import { ChipPayload } from "../../pipes/DataStoreSchemaV1";
+import { ChipPayload, ChipSetPayload } from "../../pipes/DataStoreSchemaV1";
 import { DataStore, RouteAction } from "../../pipes/DataStore";
 import { usePageTitle } from "../../hooks/usePageTitle";
-import { ChipSetEditPayload } from "../../pipes/ChipSetPipes";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { contextualDescriptor, determineStorableKind } from "../../pipes/Storable";
@@ -60,8 +59,8 @@ const EditableChipRow = (props: { chip: ChipPayload, update: Dispatch<ChipPayloa
 
 export const ChipSetEditPage = () => {
     useActionData();
-    const payload = useLoaderData() as ChipSetEditPayload;
-    const [chipset, updateSet] = useState(payload.chipset);
+    const originalChipset = useLoaderData() as ChipSetPayload;
+    const [chipset, updateSet] = useState(originalChipset);
     const submit = useSubmit();
     const { id } = useParams();
 
@@ -71,7 +70,7 @@ export const ChipSetEditPage = () => {
 
     return (
         <Paper className='page chip-set'>
-            <HeaderView title={LocalizationController.mapString(strings.subtitle[kind], { setname: payload.chipset.name })} />
+            <HeaderView title={LocalizationController.mapString(strings.subtitle[kind], { setname: originalChipset.name })} />
             <div className='content'>
                 <Form onSubmit={e => {
                     e.preventDefault();

@@ -12,37 +12,6 @@ export class Factory {
         return uuid();
     };
 
-    // static generator<StoreName extends StoreNames<PTDSchemaCurrent>, ValueType extends StoreValue<PTDSchemaCurrent, StoreName>>(tableName: StoreName): (values?: Partial<ValueType>) => ValueType {
-    //             switch (tableName) {
-    //                 case 'chipsets':
-    //                     return (v?: Partial<ValueType>) => {
-    //                         return this.chipSet(v);
-    //                     }
-    //                 case 'tournaments':
-    //                     return this.tournament;
-    //             }
-    // }
-
-
-    static extractIndexedValues = <T extends object>(formData: FormData, token: string): T[] => {
-        let result: { [key: string]: string | number | File }[] = [];
-    
-        for (let [entry, value] of formData.entries()) {
-            const [match, index, key] = entry.match(new RegExp(`^${token}\.(\\d+)\.(.+)`)) || [];
-    
-            if (match) {
-                const idx = parseInt(index);
-                let object = result[idx] || {};
-                let numberValue = Number(value);
-                let hydratedValue = isNaN(numberValue) ? value : numberValue;
-                object[key] = hydratedValue;
-                result[idx] = object;
-            }
-        }
-    
-        return result as T[];
-    }
-
     static DEFAULT_SETTINGS: SettingsPayload = {
         should_graph_levels: false,
         id: 'user',

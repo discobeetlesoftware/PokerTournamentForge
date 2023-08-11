@@ -4,15 +4,15 @@ import { DataStore, RouteAction } from "./DataStore";
 import { ChipSetPayload, SettingsPayload, TournamentPayload } from "./DataStoreSchemaV1";
 import { Factory } from "./Factory";
 import { StorableKind, determineStorableKind } from "./Storable";
-import { deleteAction, getAction, listAction } from "./DataPipes";
+import { deleteAction, getAction, listAction, putAction } from "./DataPipes";
 import { settingsLoader } from "./SettingsPipes";
 import { HydrationController } from "../controllers/HydrationController";
 
 export type EnrichedTournamentPayload = { 
-    tournament: TournamentPayload,
-    chipsets: ChipSetPayload[],
     kind: StorableKind,
-    settings: SettingsPayload
+    tournament: TournamentPayload,
+    settings: SettingsPayload,
+    chipsets: ChipSetPayload[],
 };
 
 export const tournamentListLoader = async () => {
@@ -20,24 +20,24 @@ export const tournamentListLoader = async () => {
 }
 
 export const tournamentLoader = async (args: LoaderFunctionArgs): Promise<TournamentPayload> => {
-    const { id } = args.params;
-    if (!id) {
-        throw Error('Cannot load a tournament without an id.');
-    }
-    const sets = await chipListLoader();
-    if (DataStore.matchesNewRoute(id)) {
-        return Factory.tournament();
-    }
-    const store = new DataStore();
-    await store.open();
-    let result = await store.getValue('tournaments', id);
-    if (!result) {
-        throw Error('Tournament not found.');
-    }
-    return result as TournamentPayload;
+    return getAction('tournaments', args.params.id);
 };
 
-export const sharedTournamentLoader = async (args: LoaderFunctionArgs): Promise<EnrichedTournamentPayload> => {
+const enrichedTournamentLoader = async (args: LoaderFunctionArgs, chipsetFilter?: (tournament: TournamentPayload, candidate: ChipSetPayload) => boolean): Promise<EnrichedTournamentPayload> => {
+    const tournament = await tournamentLoader(args);
+    const chipsets = await chipListLoader();
+    const settings = await settingsLoader();
+    return {
+        kind: determineStorableKind(tournament),
+        tournament: tournament,
+        settings: settings,
+        chipsets: chipsetFilter ? chipsets.filter((chipset => {
+            return chipsetFilter(tournament, chipset);
+        })) : chipsets,
+    };
+}
+
+export const sharedTournamentLoader = async (args: LoaderFunctionArgs) => {
     const queryPayload = new URL(args.request.url).searchParams.get('p');
     if (!queryPayload) {
         throw Error('Failed to hydrate tournament from URL payload.');
@@ -52,28 +52,12 @@ export const sharedTournamentLoader = async (args: LoaderFunctionArgs): Promise<
     return { tournament: tournament, chipsets: [], kind: StorableKind.foreign, settings: settings };
 };
 
-export const enrichedTournamentLoader = async (args: LoaderFunctionArgs): Promise<EnrichedTournamentPayload> => {
-    const tournament = await tournamentLoader(args);
-    const chipsets = await chipListLoader();
-    const settings = await settingsLoader();
-    return { 
-        tournament: tournament as TournamentPayload,
-        chipsets: chipsets.filter(chipset => chipset.id === tournament.set_id), 
-        kind: determineStorableKind(tournament),
-        settings: settings
-    };
+export const tournamentViewLoader = async (args: LoaderFunctionArgs): Promise<EnrichedTournamentPayload> => {
+    return enrichedTournamentLoader(args, ((tournament, chipset) => chipset.id === tournament.set_id));
 };
 
-export const tournamentEditLoader = async (args: LoaderFunctionArgs): Promise<EnrichedTournamentPayload> => {
-    const tournament = await tournamentLoader(args);
-    const chipsets = await chipListLoader();
-    const settings = await settingsLoader();
-    return { 
-        tournament: tournament as TournamentPayload, 
-        chipsets: chipsets, 
-        kind: determineStorableKind(tournament),
-        settings: settings
-    };
+export const tournamentEditLoader = async (args: LoaderFunctionArgs) => {
+    return enrichedTournamentLoader(args);
 };
 
 export const saveTournament = async (candidate: TournamentPayload) => {
@@ -87,6 +71,7 @@ export const saveTournament = async (candidate: TournamentPayload) => {
             }
         }
     }
+    
     var tournament = Factory.tournament(candidate);
     await store.putValue('tournaments', tournament);
     return DataStore.route('tournaments', RouteAction.read, tournament);
@@ -94,8 +79,11 @@ export const saveTournament = async (candidate: TournamentPayload) => {
 
 export const tournamentUpdateAction: ActionFunction = async ({ request }) => {
     const data = await request.json() as TournamentPayload;
-    const route = await saveTournament(data);
-    return redirect(route);
+    const tournament = await putAction('tournaments', data);
+    if (!tournament) {
+        throw Error('Failed to update tournament');
+    }
+    return redirect(DataStore.route('tournaments', RouteAction.read, tournament));
 };
 
 export const tournamentDeleteAction: ActionFunction = async (args) => {
