@@ -26,7 +26,7 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import { TournamentGraphView } from "../../components/TournamentGraphView";
 import { ChipPayloadController } from "../../controllers/ChipPayloadController";
-import { TimeFormatter } from "../../models/TimeFormatter";
+import { FormatterController } from "../../controllers/FormatterController";
 
 const strings = configuration.strings.en.tournament;
 
@@ -92,10 +92,6 @@ export const TournamentEditPage = () => {
         }
         const value = level.denominations[index];
         return value.toString();
-    }
-
-    function levelDuration(level: TournamentLevelPayload): string {
-        return TimeFormatter(level.duration);
     }
 
     function levelClassName(level: TournamentLevelPayload, index: number): string {
@@ -207,7 +203,7 @@ export const TournamentEditPage = () => {
                                 state.levels.map((level, index) =>
                                     <TableRow key={'level' + index} className={levelClassName(level, index)}>
                                         <TableCell>{levelText(level)}</TableCell>
-                                        <TableCell>{TimeFormatter(level.duration)}</TableCell>
+                                        <TableCell>{FormatterController.time(level.duration)}</TableCell>
                                         <TableCell>{levelStartTime(level)}</TableCell>
                                         {level.type === 'round' && <TableCell>{levelBlind(level, 0)}</TableCell>}
                                         {level.type === 'round' && <TableCell>{levelBlind(level, 1)}</TableCell>}

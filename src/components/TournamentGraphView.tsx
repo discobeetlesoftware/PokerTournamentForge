@@ -1,8 +1,8 @@
 import { DatumValue, ResponsiveLine } from '@nivo/line';
 import { SecondaryBlockHeaderView } from './SecondaryHeaderView';
 import { TournamentLevelPayload, TournamentPayload } from '../pipes/DataStoreSchemaV1';
-import Duration from '../models/Duration';
 import { ValueFormat } from '@nivo/core';
+import { FormatterController } from '../controllers/FormatterController';
 
 export interface ChartDataPacket {
     x: number;
@@ -93,7 +93,7 @@ const createGraphPayload = (tournament: TournamentPayload): { values: ChartData[
 
 const minuteFormatter: ValueFormat<DatumValue> = (input) => {
     const minutes = input as number;
-    return new Duration(minutes).toString(minutes === 0);
+    return FormatterController.time(minutes);
 };
 
 //export type TicksSpec<Value extends ScaleValue> = number | string | Value[];

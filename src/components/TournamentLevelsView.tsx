@@ -1,5 +1,4 @@
 import { TournamentLevelPayload, TournamentPayload } from "../pipes/DataStoreSchemaV1";
-import { TimeFormatter } from "../models/TimeFormatter";
 import Time from "../models/Time";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
@@ -7,6 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
+import { FormatterController } from "../controllers/FormatterController";
 
 export const TournamentLevelsView = (props: { tournament: TournamentPayload }) => {
     const { tournament } = props;
@@ -71,7 +71,7 @@ export const TournamentLevelsView = (props: { tournament: TournamentPayload }) =
                         tournament.levels.map((level, index) =>
                             <TableRow key={'level' + index} className={levelClassName(level, index)}>
                                 <TableCell>{levelText(level)}</TableCell>
-                                <TableCell>{TimeFormatter(level.duration)}</TableCell>
+                                <TableCell>{FormatterController.time(level.duration)}</TableCell>
                                 <TableCell>{levelStartTime(level)}</TableCell>
                                 {level.type === 'round' && <TableCell>{levelBlind(level, 0)}</TableCell>}
                                 {level.type === 'round' && <TableCell>{levelBlind(level, 1)}</TableCell>}
