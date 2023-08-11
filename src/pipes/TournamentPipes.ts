@@ -60,23 +60,6 @@ export const tournamentEditLoader = async (args: LoaderFunctionArgs) => {
     return enrichedTournamentLoader(args);
 };
 
-export const saveTournament = async (candidate: TournamentPayload) => {
-    const store = new DataStore();
-    await store.open();
-    if (!candidate.minimum_denomination || candidate.minimum_denomination === 0) {
-        if (candidate.set_id) {
-            const chipset = await getAction('chipsets', candidate.set_id);
-            if (chipset && chipset.chips.length > 0) {
-                candidate.minimum_denomination = chipset.chips[0].value;
-            }
-        }
-    }
-    
-    var tournament = Factory.tournament(candidate);
-    await store.putValue('tournaments', tournament);
-    return DataStore.route('tournaments', RouteAction.read, tournament);
-};
-
 export const tournamentUpdateAction: ActionFunction = async ({ request }) => {
     const data = await request.json() as TournamentPayload;
     const tournament = await putAction('tournaments', data);

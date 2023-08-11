@@ -14,7 +14,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from "@mui/material/Typography";
 import { DateView } from "../../components/DateView";
-import { EnrichedTournamentPayload, saveTournament } from "../../pipes/TournamentPipes";
+import { EnrichedTournamentPayload } from "../../pipes/TournamentPipes";
 import { ChipsetGridView } from "../../components/ChipsetGridView";
 import { TournamentGraphView } from "../../components/TournamentGraphView";
 import ShareIcon from '@mui/icons-material/Share';
@@ -23,6 +23,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import Snackbar from "@mui/material/Snackbar";
 import { useSharableLinkBuilder } from "../../hooks/useSharableLinkBuilder";
 import { ChipPayloadController } from "../../controllers/ChipPayloadController";
+import { putAction } from "../../pipes/DataPipes";
 
 const strings = configuration.strings.en.tournament;
 
@@ -94,8 +95,9 @@ export const TournamentPage = () => {
                             <IconButton
                                 color='secondary'
                                 onClick={() => {
-                                    saveTournament(tournament).then((path) => {
-                                        navigate(path, { replace: true });
+                                    putAction('tournaments', tournament).then(result => {
+                                        const route = DataStore.route('tournaments', result ? RouteAction.read : RouteAction.list, result);
+                                        navigate(route, { replace: true });
                                     });
                                 }}
                             >

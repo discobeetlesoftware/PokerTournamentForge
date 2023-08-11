@@ -56,5 +56,5 @@ export const putAction = async <StoreName extends StoreNames<PTDSchemaCurrent>, 
     const store = new DataStore();
     await store.open();
     const value = generate(tableName, candidate);
-    return store.putValue(tableName, value).then(() => { return value }, () => { return null });
+    return store.putValue(tableName, value).then(() => { return value }, () => { return undefined });
 }
