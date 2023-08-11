@@ -16,7 +16,7 @@ let strings = configuration.strings.en.tournament_list;
 
 export const TournamentListPage = () => {
     usePageTitle(strings.title);
-    const data = useActionData();
+    useActionData();
     const tournaments = useLoaderData() as TournamentPayload[];
 
     const presets = tournaments.filter(tournament => tournament.is_preset);

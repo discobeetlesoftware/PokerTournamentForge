@@ -26,7 +26,7 @@ const TournamentIcon = (props: {count: number}) => {
         <SvgIcon component={icons[index]} color='inherit' inheritViewBox sx={{ height: '100%', width: '2em', float: 'right', ml: '15px' }} />
     );
 }
-
+/*
 function tournamentGameDescription(tournament: TournamentPayload) {
     return tournament.games.length === 0 ? undefined : tournament.games.join(', ');
 }
@@ -43,7 +43,7 @@ function tournamentLevelDescription(tournament: TournamentPayload) {
         shouldCountLevel: true
     });
 }
-
+*/
 function tournamentFirstLevelBaseDenomination(tournament: TournamentPayload): number | null {
     const level = tournament.levels.length > 0 ? tournament.levels[0] : null;
     if (!level) {

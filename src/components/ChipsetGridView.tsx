@@ -12,7 +12,7 @@ export const ChipsetGridView = (props: { title: string, placeholder?: string, ch
             <Grid container spacing={2} sx={{ mb: 1.5 }}>
                 {props.chipsets.map(set =>
                     <Grid item key={set.id}>
-                        <ChipsetCardView isPreset={false} set={set} />
+                        <ChipsetCardView set={set} />
                     </Grid>
                 )}
             </Grid>

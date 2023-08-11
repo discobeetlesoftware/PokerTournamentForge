@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements, useRouteError } from 'react-router-dom';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { AppLayout } from './layouts/AppLayout';
 import { WelcomePage } from './pages/WelcomePage';
 import { AboutPage } from './pages/AboutPage';

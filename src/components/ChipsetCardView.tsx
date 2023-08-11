@@ -30,12 +30,11 @@ const ChipView = (chip: ChipPayload) => {
 };
 
 interface PokerChipSetViewProps {
-    isPreset: boolean;
     set: ChipSetPayload;
 }
 
 export function ChipsetCardView(props: PokerChipSetViewProps) {
-    const { isPreset, set } = props;
+    const { set } = props;
     return (
         <Card key={set.id} sx={{ minWidth: 275, maxWidth: 400 }}>
             <CardContent>

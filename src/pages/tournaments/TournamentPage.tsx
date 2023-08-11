@@ -39,10 +39,10 @@ const getOriginString = (kind: StorableKind): string => {
 }
 
 export const TournamentPage = () => {
-    const { _id } = useParams();
+    useParams();
+    useActionData();
     const { tournament, chipsets, kind, settings } = useLoaderData() as EnrichedTournamentPayload;
     const submit = useSubmit();
-    const _data = useActionData();
     const navigate = useNavigate();
     const linkBuilder = useSharableLinkBuilder();
     const [isDeleteStaged, setIsDeleteStaged] = useState(false);

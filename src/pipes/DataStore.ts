@@ -1,4 +1,4 @@
-import { IDBPDatabase, IndexNames, StoreKey, StoreNames, StoreValue, openDB } from 'idb';
+import { IDBPDatabase, IndexNames, StoreNames, StoreValue, openDB } from 'idb';
 import { DataStoreTableNamesV1, PTDSchemaV1 } from './DataStoreSchemaV1';
 import Synthesizer from '../models/Synthesizer';
 
@@ -27,7 +27,7 @@ export class DataStore {
                         if (db.objectStoreNames.contains(tableName)) {
                             continue;
                         }
-                        const store = db.createObjectStore(tableName, { autoIncrement: false, keyPath: 'id' });
+                        db.createObjectStore(tableName, { autoIncrement: false, keyPath: 'id' });
                     }
                 },
             });

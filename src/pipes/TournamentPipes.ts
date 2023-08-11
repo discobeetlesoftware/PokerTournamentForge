@@ -1,5 +1,5 @@
 import { ActionFunction, LoaderFunctionArgs, redirect } from "react-router-dom";
-import { chipListLoader, chipSetLoader, chipsetPayloadLoader } from "./ChipSetPipes";
+import { chipListLoader } from "./ChipSetPipes";
 import { DataStore, RouteAction } from "./DataStore";
 import { ChipSetPayload, SettingsPayload, TournamentPayload } from "./DataStoreSchemaV1";
 import { Factory } from "./Factory";

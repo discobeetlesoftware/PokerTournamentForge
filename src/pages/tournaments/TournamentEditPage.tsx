@@ -26,33 +26,18 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import { TournamentGraphView } from "../../components/TournamentGraphView";
 import { ChipPayloadController } from "../../controllers/ChipPayloadController";
+import { TimeFormatter } from "../../models/TimeFormatter";
 
 const strings = configuration.strings.en.tournament;
 
-const TimeFormatter = (minutes?: number, forceFull: boolean = false): string => {
-    if (!minutes || minutes === 0) {
-        return '';
-    }
-    const hours = Math.floor(minutes / 60);
-    minutes = hours > 0 ? minutes % 60 : minutes;
-    var output: string[] = [];
-    if (hours > 0 || forceFull) {
-        output.push(`${hours}h`);
-    }
-    if (minutes > 0 || forceFull) {
-        output.push(`${minutes}m`);
-    }
-    return output.join(' ');
-}
-
 export const TournamentEditPage = () => {
-    const data = useActionData();
+    useActionData();
     const { id } = useParams();
     const submit = useSubmit();
     const { tournament, chipsets, settings } = useLoaderData() as EnrichedTournamentPayload;
     const [state, setState] = useFlatReducer(tournament);
-    const selectedSet = useMemo(() => chipsets.find(set => set.id === state.set_id), [state.set_id]);
-    const selectedChip = useMemo(() => selectedSet?.chips.find(chip => chip.value === state.minimum_denomination), [state.set_id, state.minimum_denomination]);
+    const selectedSet = useMemo(() => chipsets.find(set => set.id === state.set_id), [state.set_id, chipsets]);
+    const selectedChip = useMemo(() => selectedSet?.chips.find(chip => chip.value === state.minimum_denomination), [state.set_id, state.minimum_denomination, selectedSet]);
     const defaultTournament = Factory.DEFAULT_TOURNAMENT as unknown as FormModel;
     const isCreate = DataStore.matchesNewRoute(id);
     const formModel = state as unknown as FormModel;

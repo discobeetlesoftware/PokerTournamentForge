@@ -36,10 +36,6 @@ export const TournamentLevelsView = (props: { tournament: TournamentPayload }) =
         return value.toString();
     }
 
-    function levelDuration(level: TournamentLevelPayload): string {
-        return TimeFormatter(level.duration);
-    }
-
     function levelClassName(level: TournamentLevelPayload, index: number): string {
         if (level.is_expected_conclusion) {
             return 'tournament-level-conclusion';

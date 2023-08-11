@@ -30,7 +30,7 @@ export const SettingsPage = () => {
     const [isUpdating, setIsUpdating] = useState(false);
     const submit = useSubmit();
     const [settings, updateSettings] = useState(useLoaderData() as SettingsPayload)
-    const data = useActionData();
+    useActionData();
     const [displaySaveSuccess, setDisplaySaveSuccess] = useState(false);
 
     let strings = configuration.strings.en.settings;
