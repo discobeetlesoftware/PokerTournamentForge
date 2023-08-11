@@ -22,6 +22,7 @@ import { StorableKind } from "../../pipes/Storable";
 import SaveIcon from '@mui/icons-material/Save';
 import Snackbar from "@mui/material/Snackbar";
 import { useSharableLinkBuilder } from "../../hooks/useSharableLinkBuilder";
+import { ChipPayloadController } from "../../controllers/ChipPayloadController";
 
 const strings = configuration.strings.en.tournament;
 
@@ -104,15 +105,20 @@ export const TournamentPage = () => {
                     </span>
                     <div>
                         <Typography variant='body2'>
-                            {getOriginString(kind)} tournament, base T{tournament.minimum_denomination}.
+                            {getOriginString(kind)} tournament, base {ChipPayloadController.tournamentDenomination(tournament.minimum_denomination)}.
                         </Typography>
+                        {tournament.games.length > 0 &&
+                        <Typography variant='body2'>
+                            Playing {tournament.games.join(', ')}
+                        </Typography>
+                        }
+                        
                         <DateView created_at={tournament.created_at} updated_at={tournament.updated_at} />
                     </div>
                 </HeaderView>
 
                 <div className='content'>
                     <ChipsetGridView title={'Chip sets'} chipsets={chipsets} placeholder={strings.no_customs} />
-
                     {
                         settings.should_graph_levels &&
                         <Paper>

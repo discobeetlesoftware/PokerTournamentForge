@@ -143,7 +143,19 @@ export const TournamentEditPage = () => {
                     <SecondaryBlockHeaderView title={'Configuration'} />
                     <Grid container spacing={{ xs: 1, md: 2 }} sx={{ width: '100vw' }} direction='row' justifyContent='center' alignItems='center'>
                         <ComponentView key='tournament_name' mapKey='tournament_name' grid={{ md: 6, xs: 12 }} update={setState} formElement={formModel} defaultElement={defaultTournament} />
-                        <ComponentView key='games' mapKey='games' grid={{ md: 6, xs: 12 }} update={setState} formElement={formModel} defaultElement={defaultTournament} />
+                        <ComponentView 
+                            key='games' 
+                            mapKey='games' 
+                            grid={{ md: 6, xs: 12 }} 
+                            update={(v => {
+                                console.log(v.games);
+                                setState({
+                                    ...v,
+                                    games: (v.games as string).split(',').map(s => s.trim())
+                                })
+                            })}
+                            formElement={formModel} 
+                            defaultElement={defaultTournament} />
                         <ComponentView key='set_id' mapKey='set_id' update={v => {
                             setState({ ...v, minimum_denomination: undefined })
                         }} formElement={formModel} defaultElement={defaultTournament} format={value => value.name} selectorViewProps={{
