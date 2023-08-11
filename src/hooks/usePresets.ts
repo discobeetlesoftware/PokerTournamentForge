@@ -101,6 +101,10 @@ export default function usePresets() {
             if (tournamentCount === 0) {
                 await store.putBulkValue('tournaments', presets.tournaments);
             }
+            const settingsCount = await store.countAll('settings');
+            if (settingsCount === 0) {
+                await store.putValue('settings', Factory.settings());
+            }
         }
 
         if (!hasPresets) {
