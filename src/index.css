@@ -1,0 +1,170 @@
+html,
+body {
+    min-height: 100%;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.page {
+    padding: 2em;
+}
+
+.page h1 {
+    margin-bottom: 0.5em;
+}
+
+.content {
+    margin-top: 1em;
+}
+
+.page .content p {
+    margin-bottom: 1.5em;
+}
+
+.control-group {
+    padding: 20px;
+}
+
+.tournament-break-row {
+    background-color: #F2FDE0;
+}
+
+.tournament-level-row {
+    background-color: #E0FCFF;
+}
+
+.tournament-level-conclusion {
+    background-color: #FFEEEE;
+}
+
+.control-group .element {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.chipset-list .name {
+    font-weight: 800;
+    margin-right: 1em;
+    display: inline-block;
+}
+
+div.destroy-button {
+    margin: 1em;
+    margin-left: 0;
+}
+
+img.header, svg.header {
+    float: left;
+    margin-right: 1em;
+}
+
+.poker-game-icon {
+    width: 8em;
+    height: 8em;
+}
+
+.discobeetle-logo {
+    padding-top: 5px;
+    padding-left: auto;
+    padding-right: auto;
+}
+
+div.discobeetle-logo img {
+    margin: auto;
+    width: 30%;
+}
+
+div.discobeetle-logo a {
+    line-height: 100%;
+    cursor: pointer;
+}
+
+.left {
+    clear: left;
+}
+
+.card-view {
+    padding: 10px;
+    border: 2px solid #D3CEC4;
+    border-radius: 20px;
+}
+
+a {
+    text-decoration: none;
+    font-weight: 800;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.panel {
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.chip input {
+    width: 2em;
+}
+
+#tournament_elements {
+    border-spacing: 0px;
+}
+
+#tournament_elements th {
+    padding: 8px;
+}
+
+#tournament_elements td {
+    text-align: center;
+    padding: 8px;
+}
+
+#tournament_elements thead>tr {
+    background-color: #102A43;
+    color: #F0F4F8;
+}
+
+#tournament_elements tbody>tr:nth-child(odd) {
+    background-color: #BCCCDC;
+}
+
+.item {
+    position: relative;
+    margin: 10px 0;
+}
+
+.input {
+    width: calc(100%);
+}
+
+.columns {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.columns>div.third {
+    width: 31%;
+}
+
+.control_panel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* button {
+    border: none;
+    border-radius: 5px;
+    background: #0C6B58;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 800;
+    margin: 5px;
+}
+
+button:hover {
+    background: #3EBD93;
+} */
