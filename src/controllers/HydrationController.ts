@@ -3,7 +3,7 @@ import { Factory } from "../pipes/Factory";
 import { Uniquable } from "../pipes/Storable";
 import { Buffer } from 'buffer';
 
-export default class Synthesizer {
+export class HydrationController {
     static encode(candidate?: Uniquable): string {
         const obj = {
             ...candidate,

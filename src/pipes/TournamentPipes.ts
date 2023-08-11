@@ -3,10 +3,10 @@ import { chipListLoader } from "./ChipSetPipes";
 import { DataStore, RouteAction } from "./DataStore";
 import { ChipSetPayload, SettingsPayload, TournamentPayload } from "./DataStoreSchemaV1";
 import { Factory } from "./Factory";
-import Synthesizer from "../models/Synthesizer";
 import { StorableKind, determineStorableKind } from "./Storable";
 import { deleteAction, getAction, listAction } from "./DataPipes";
 import { settingsLoader } from "./SettingsPipes";
+import { HydrationController } from "../controllers/HydrationController";
 
 export type EnrichedTournamentPayload = { 
     tournament: TournamentPayload,
@@ -42,7 +42,7 @@ export const sharedTournamentLoader = async (args: LoaderFunctionArgs): Promise<
     if (!queryPayload) {
         throw Error('Failed to hydrate tournament from URL payload.');
     }
-    const tournament = Synthesizer.decodeTournament(queryPayload);
+    const tournament = HydrationController.decodeTournament(queryPayload);
 
     if (!tournament) {
         throw Error('Failed to load tournament.');

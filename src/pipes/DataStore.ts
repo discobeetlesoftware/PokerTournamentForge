@@ -1,6 +1,6 @@
 import { IDBPDatabase, IndexNames, StoreNames, StoreValue, openDB } from 'idb';
 import { DataStoreTableNamesV1, PTDSchemaV1 } from './DataStoreSchemaV1';
-import Synthesizer from '../models/Synthesizer';
+import { HydrationController } from '../controllers/HydrationController';
 
 export const DataStoreVersion = 1;
 const DEBUG = false;
@@ -55,7 +55,7 @@ export class DataStore {
                 return `${element?.id || 'new'}/forge`;
 
             case RouteAction.share:
-                return `share?p=${Synthesizer.encode(element)}`;
+                return `share?p=${HydrationController.encode(element)}`;
 
             default:
                 throw Error(`Unknown action[${action}] for element:[${element}]`);
