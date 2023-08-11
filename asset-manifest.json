@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/PokerTournamentForge/static/css/main.2536d0a5.css",
+    "main.js": "/PokerTournamentForge/static/js/main.35146933.js",
+    "static/media/beetle.png": "/PokerTournamentForge/static/media/beetle.53617fc7d46374955a24.png",
+    "static/media/pokerGame.svg": "/PokerTournamentForge/static/media/pokerGame.58d886cacc8f8958e6200553fda4fa2a.svg",
+    "static/media/flowers.svg": "/PokerTournamentForge/static/media/flowers.00347fd6ea4dc04d80c60503dc30de79.svg",
+    "index.html": "/PokerTournamentForge/index.html",
+    "static/media/pokerChip.svg": "/PokerTournamentForge/static/media/pokerChip.2d2096627a50b71f6bee5bb8de671b3c.svg",
+    "static/media/levels.svg": "/PokerTournamentForge/static/media/levels.62bb0b5c775841d986c0935ee25c845c.svg",
+    "static/media/clubs.svg": "/PokerTournamentForge/static/media/clubs.9ee28dce993788d1c5fe75d8692cb100.svg",
+    "static/media/spades.svg": "/PokerTournamentForge/static/media/spades.1ce142b9145919b62aed28dfdfffaf98.svg",
+    "static/media/hearts.svg": "/PokerTournamentForge/static/media/hearts.6890703b93db380402b05f9d9fad0f64.svg",
+    "static/media/diamonds.svg": "/PokerTournamentForge/static/media/diamonds.2e79d58a43b49ca85d507cba0951f787.svg",
+    "main.2536d0a5.css.map": "/PokerTournamentForge/static/css/main.2536d0a5.css.map",
+    "main.35146933.js.map": "/PokerTournamentForge/static/js/main.35146933.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2536d0a5.css",
+    "static/js/main.35146933.js"
+  ]
+}
