@@ -4,8 +4,6 @@
     "private": true,
     "homepage": "https://discobeetlesoftware.github.io/PokerTournamentForge",
     "dependencies": {
-        "@emotion/react": "^11.11.1",
-        "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.14.1",
         "@mui/material": "^5.14.2",
         "@mui/x-data-grid": "^6.10.2",
