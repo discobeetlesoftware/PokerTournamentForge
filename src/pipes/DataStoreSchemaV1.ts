@@ -7,6 +7,14 @@ export const DataStoreTableNamesV1: [
     keyof Pick<PTDSchemaV1, 'settings'>
 ] = ['chipsets', 'tournaments', 'settings'];
 
+export const TARGET_STRATEGY = {
+    STRICT: 'STRICT',
+    AGGRESSIVE: 'AGGRESSIVE',
+    TURBO: 'TURBO'
+} as const;
+type ObjectValues<T> = T[keyof T];
+export type TargetStrategy = ObjectValues<typeof TARGET_STRATEGY>;
+
 export interface SettingsPayload extends Storable {
     should_graph_levels: boolean;
 }
@@ -21,6 +29,7 @@ export interface TournamentPayload extends Storable {
     starting_stack: number;
     player_count: number;
     target_blind_ratio: number;
+    target_strategy: TargetStrategy;
     color_up_threshold: number;
     minimum_denomination: number;
     generator_version: number;

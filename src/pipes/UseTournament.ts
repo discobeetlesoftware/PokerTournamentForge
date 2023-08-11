@@ -1,4 +1,4 @@
-import { ChipPayload, ChipSetPayload, TournamentLevelPayload, TournamentPayload } from "./DataStoreSchemaV1";
+import { ChipPayload, ChipSetPayload, TARGET_STRATEGY, TournamentLevelPayload, TournamentPayload } from "./DataStoreSchemaV1";
 import { configuration } from "../configuration";
 import { Factory } from "./Factory";
 
@@ -25,15 +25,27 @@ export function roundToDenomination(candidate: number, chip: ChipPayload): numbe
     return Math.max(chip.value, Math.round(candidate / chip.value) * chip.value);
 }
 
-export function nextBlind(candidate: number, payload: TournamentPayload, set: ChipSetPayload, minimumChipIndex: number): [number, number] {
+export function nextBlind(smallBlind: number, bigBlind: number, target: number, payload: TournamentPayload, set: ChipSetPayload, minimumChipIndex: number) {
     var chip = set.chips[minimumChipIndex];
     if (!chip) {
-        throw Error(`Cannot calculate next blind for '${candidate}' because the set called '${set.name}' contains no chips`);
+        throw Error(`Cannot calculate next blind for smallBlind[${smallBlind}] bigBlind[${bigBlind}] because the set called '${set.name}' contains no chips`);
     }
+    const nextTarget = target + (target * payload.target_blind_ratio);
+    var candidate = (() => {
+        switch (payload.target_strategy) {
+            case TARGET_STRATEGY.TURBO:
+                return bigBlind + (bigBlind * payload.target_blind_ratio);
+            case TARGET_STRATEGY.AGGRESSIVE:
+                return smallBlind + (smallBlind * payload.target_blind_ratio);
+            case TARGET_STRATEGY.STRICT:
+                return nextTarget;
+        }
+    })();
     var closestValue = roundToDenomination(candidate, chip);
     if (closestValue === 0) {
-        return [chip.value, chip.value];
+        return { smallBlind: chip.value, bigBlind: chip.value, closestChip: chip.value, target: nextTarget };
     }
+
 
     var closestChip = chip;
     for (let index = minimumChipIndex; index < set.chips.length; index++) {
@@ -45,18 +57,52 @@ export function nextBlind(candidate: number, payload: TournamentPayload, set: Ch
         }
     }
 
-    return [closestValue, closestChip.value];
+    switch (payload.target_strategy) {
+        case TARGET_STRATEGY.TURBO: {
+            closestValue = roundToDenomination((closestValue / 2) - 1, set.chips[minimumChipIndex]);
+            if (closestValue === smallBlind) {
+                closestValue += set.chips[minimumChipIndex].value;
+            }
+            return {
+                smallBlind: closestValue,
+                bigBlind: closestValue * 2,
+                closestChip: closestChip.value,
+                target: nextTarget
+            };
+        }
+        case TARGET_STRATEGY.AGGRESSIVE: {
+            if (closestValue === smallBlind) {
+                closestValue += set.chips[minimumChipIndex].value;
+            }        
+            return {
+                smallBlind: closestValue,
+                bigBlind: closestValue * 2,
+                closestChip: closestChip.value,
+                target: nextTarget
+            };
+        }
+        case TARGET_STRATEGY.STRICT: {
+            if (closestValue === smallBlind) {
+                closestValue += set.chips[minimumChipIndex].value;
+            }    
+            return {
+                smallBlind: closestValue,
+                bigBlind: closestValue * 2,
+                closestChip: closestChip.value,
+                target: nextTarget
+            };
+        }
+    }
 }
 
-export function nextBlinds(smallBlind: number, bigBlind: number, payload: TournamentPayload, set: ChipSetPayload, minimumChipIndex: number): [number, number] {
-    const oldBlind = smallBlind + bigBlind;
+// export function nextBlinds(smallBlind: number, bigBlind: number, target: number, payload: TournamentPayload, set: ChipSetPayload, minimumChipIndex: number) {
+//     let candidate = nextBlind(smallBlind, bigBlind, target, payload, set, minimumChipIndex);
 
-    let smallCandidate = nextBlind(smallBlind + (smallBlind * payload.target_blind_ratio), payload, set, minimumChipIndex)[0];
-    if (smallCandidate === smallBlind) {
-        smallCandidate += set.chips[minimumChipIndex].value;
-    }
-
-    return [smallCandidate, smallCandidate + smallCandidate];
+//     return {
+//         smallBlind: candidate.nextBlind,
+//         bigBlind: candidate.bigBlind,
+//         target: candidate.target
+//     }
     
 
 
@@ -79,16 +125,17 @@ export function nextBlinds(smallBlind: number, bigBlind: number, payload: Tourna
         return [smallBlind, smallCandidate];
     }*/
 
-}
+// }
 
 export function generateTournament(payload: TournamentPayload, set: ChipSetPayload): TournamentLevelPayload[] {
     if (set.chips.length < 2) {
         return [];
     }
-    console.log('===================');
+    console.log('==========================');
     var minimumChipIndex = 0;
     var smallBlind = baseDenomination(payload, set.chips[minimumChipIndex]);
     var bigBlind = smallBlind * payload.initial_big_blind_multiple;
+    var target = smallBlind;
     var overflowCount = payload.level_overflow;
     var mark_is_expected_conclusion = false;
     const finalBlind = estimateFinalBlind(payload);
@@ -114,7 +161,7 @@ export function generateTournament(payload: TournamentPayload, set: ChipSetPaylo
     const [min, max] = payload.break_threshold;
 
     function pushBreak (level?: TournamentLevelPayload) {
-        console.log(min, max, pendingColorUpBreaks.length, level?'pushing':'+', lastBreakLevel, 'mindenom:', set.chips[minimumChipIndex].value);
+        // console.log(min, max, pendingColorUpBreaks.length, level?'pushing':'+', lastBreakLevel, 'mindenom:', set.chips[minimumChipIndex].value);
         if (lastBreakLevel < min) {
             if (level) {
                 pendingColorUpBreaks.push(level);
@@ -152,7 +199,7 @@ export function generateTournament(payload: TournamentPayload, set: ChipSetPaylo
             denominations: [smallBlind, bigBlind]
         });
         levels.push(level);
-        console.log('pushed level ', levels.length, level.denominations);
+        // console.log('pushed level ', levels.length, level.denominations);
         lastBreakLevel += 1;
 
         const shouldColorUp = (
@@ -182,12 +229,12 @@ export function generateTournament(payload: TournamentPayload, set: ChipSetPaylo
                 console.warn('Not enough chips to generate complete structure with given configuration', JSON.stringify(payload));
                 break;
             }
-        } else {
+        } else if (!isOverflowing()) {
             lastBreakLevel += pushBreak() ? -lastBreakLevel : 0;
         }
 
 
-        [smallBlind, bigBlind] = nextBlinds(smallBlind, bigBlind, payload, set, minimumChipIndex);
+        var { smallBlind, bigBlind, target } = nextBlind(smallBlind, bigBlind, target, payload, set, minimumChipIndex);
 
     }
     return levels;

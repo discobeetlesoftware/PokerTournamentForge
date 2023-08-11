@@ -1,5 +1,5 @@
 import {v4 as uuid} from 'uuid';
-import { ChipPayload, ChipSetPayload, SettingsPayload, TournamentLevelPayload, TournamentPayload } from './DataStoreSchemaV1';
+import { ChipPayload, ChipSetPayload, SettingsPayload, TARGET_STRATEGY, TournamentLevelPayload, TournamentPayload } from './DataStoreSchemaV1';
 import { DataStore } from './DataStore';
 import { Uniquable } from './Storable';
 
@@ -96,6 +96,7 @@ export class Factory {
         starting_stack: 20_000,
         player_count: 10,
         target_blind_ratio: 0.4,
+        target_strategy: TARGET_STRATEGY.AGGRESSIVE,
         color_up_threshold: 0.15,
         minimum_denomination: 25,
         generator_version: 1,

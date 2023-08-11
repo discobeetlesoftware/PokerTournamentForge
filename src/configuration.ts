@@ -153,6 +153,10 @@ export let configuration = {
                         name: 'Target blind ratio',
                         tooltip: 'The target percentage for level-to-level blind increases'
                     },
+                    target_strategy: {
+                        name: 'Target strategy',
+                        tooltip: 'How aggressively to apply the target blind ratio'
+                    },
                     color_up_threshold: {
                         name: 'Color-up threshold',
                         tooltip: 'The target ratio of chip to small blind, below which chips are marked for color-up'

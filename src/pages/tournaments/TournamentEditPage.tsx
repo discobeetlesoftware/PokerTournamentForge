@@ -4,7 +4,7 @@ import { configuration } from "../../configuration";
 import LocalizationController from "../../controllers/LocalizationController";
 import { Form, useActionData, useLoaderData, useParams, useSubmit } from "react-router-dom";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { TournamentLevelPayload } from "../../pipes/DataStoreSchemaV1";
+import { TARGET_STRATEGY, TournamentLevelPayload } from "../../pipes/DataStoreSchemaV1";
 import { EnrichedTournamentPayload } from "../../pipes/TournamentPipes";
 import { Factory } from "../../pipes/Factory";
 import { SecondaryBlockHeaderView } from "../../components/SecondaryHeaderView";
@@ -53,15 +53,16 @@ export const TournamentEditPage = () => {
             levels: generateTournament(state, selectedSet || defaultSet)
         });
     }, [
-        selectedSet?.id, 
-        state.target_blind_ratio, 
-        state.level_duration, 
-        state.break_duration, 
-        state.color_up_threshold, 
-        state.starting_stack, 
+        selectedSet?.id,
+        state.target_blind_ratio,
+        state.level_duration,
+        state.break_duration,
+        state.color_up_threshold,
+        state.starting_stack,
         state.minimum_denomination,
+        state.target_strategy,
         state.break_threshold,
-        state.player_count, 
+        state.player_count,
         state.target_duration]);
 
     const title = isCreate ? 'Create tournament' : 'Update tournament';
@@ -143,10 +144,10 @@ export const TournamentEditPage = () => {
                     <SecondaryBlockHeaderView title={'Configuration'} />
                     <Grid container spacing={{ xs: 1, md: 2 }} sx={{ width: '100vw' }} direction='row' justifyContent='center' alignItems='center'>
                         <ComponentView key='tournament_name' mapKey='tournament_name' grid={{ md: 6, xs: 12 }} update={setState} formElement={formModel} defaultElement={defaultTournament} />
-                        <ComponentView 
-                            key='games' 
-                            mapKey='games' 
-                            grid={{ md: 6, xs: 12 }} 
+                        <ComponentView
+                            key='games'
+                            mapKey='games'
+                            grid={{ md: 6, xs: 12 }}
                             update={(v => {
                                 console.log(v.games);
                                 setState({
@@ -154,7 +155,7 @@ export const TournamentEditPage = () => {
                                     games: (v.games as string).split(',').map(s => s.trim())
                                 })
                             })}
-                            formElement={formModel} 
+                            formElement={formModel}
                             defaultElement={defaultTournament} />
                         <ComponentView key='set_id' mapKey='set_id' update={v => {
                             setState({ ...v, minimum_denomination: undefined })
@@ -172,6 +173,13 @@ export const TournamentEditPage = () => {
                             selected: selectedChip,
                             isDisabled: !selectedSet,
                             formValue: (chip) => chip!.value.toString()
+                        }} />
+                        <ComponentView key='target_strategy' mapKey='target_strategy' update={setState} formElement={formModel} defaultElement={defaultTournament} format={strategy => {
+                            return strategy;
+                        }} selectorViewProps={{
+                            values: Object.keys(TARGET_STRATEGY),
+                            selected: state.target_strategy,
+                            formValue: (strategy) => strategy || TARGET_STRATEGY.AGGRESSIVE
                         }} />
                         <ComponentView key='level_duration' mapKey='level_duration' update={setState} formElement={formModel} defaultElement={defaultTournament} />
                         <ComponentView key='break_duration' mapKey='break_duration' update={setState} formElement={formModel} defaultElement={defaultTournament} />
