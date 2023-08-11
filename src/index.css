@@ -21,8 +21,17 @@ body {
     margin-bottom: 1.5em;
 }
 
-.control-group {
-    padding: 20px;
+.control-group .element {
+    padding: 15px;
+}
+
+.control-group .title {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.control-group .action {
+    margin-top: 10px;
 }
 
 .tournament-break-row {
@@ -35,11 +44,6 @@ body {
 
 .tournament-level-conclusion {
     background-color: #FFEEEE;
-}
-
-.control-group .element {
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 .chipset-list .name {
