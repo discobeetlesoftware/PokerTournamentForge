@@ -1,7 +1,5 @@
 import { useEffect, useMemo } from "react";
-import HeaderView from "../../views/HeaderView";
 import { configuration } from "../../configuration";
-import LocalizationController from "../../controllers/LocalizationController";
 import { Form, useActionData, useLoaderData, useParams, useSubmit } from "react-router-dom";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { TARGET_STRATEGY } from "../../pipes/DataStoreSchemaV1";
@@ -13,13 +11,13 @@ import { usePageTitle } from "../../hooks/usePageTitle";
 import useFlatReducer from "../../hooks/useFlatReducer";
 import { ConfigurableElementView, FormModel, TournamentBreakpointView } from "../../views/ConfigurableElementView";
 import { generateTournament } from "../../pipes/UseTournament";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { TournamentGraphView } from "../../views/tournament/TournamentGraphView";
 import { ChipPayloadController } from "../../controllers/ChipPayloadController";
 import { TournamentLevelsView } from "../../views/tournament/TournamentLevelsView";
+import { TournamentEditSynopsisView } from "../../views/tournament/TournamentEditSynopsisView";
 
 const strings = configuration.strings.en.tournament;
 
@@ -74,24 +72,7 @@ export const TournamentEditPage = () => {
 
     return (
         <>
-            <Paper className='page tournament'>
-                <HeaderView title={isCreate ? strings.title.create : LocalizationController.mapString(strings.title.update, { name: state.tournament_name })} />
-                <div className='content'>
-                    <Typography fontWeight='light' fontSize={14}>
-                        <span>
-                            Fields with no default value are optional. Target duration and blind ratio are associated with each other, so changing one will modify the other.
-                        </span>
-                        <span>
-                            The level calculation makes a best attempt at producing playable results, but playability is not a guarantee.
-                        </span>
-                        <span>
-                            Tickle or hover a field title to learn how it influences the output.
-                        </span>
-                    </Typography>
-
-                </div>
-            </Paper>
-
+            <TournamentEditSynopsisView isCreate={isCreate} name={state.tournament_name} />
             <Paper sx={{ mt: '2vh' }}>
                 <Form onSubmit={(e) => {
                     e.preventDefault();
