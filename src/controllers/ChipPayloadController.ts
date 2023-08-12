@@ -1,7 +1,7 @@
 import { ChipPayload } from "../pipes/DataStoreSchemaV1";
 
 export class ChipPayloadController {
-    static format(payload?: ChipPayload): string | null {
+    static format(payload?: ChipPayload): string {
         const value = payload?.value || 0;
         return this.tournamentDenomination(value);
     }

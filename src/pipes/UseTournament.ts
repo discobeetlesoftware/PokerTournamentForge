@@ -181,7 +181,7 @@ export function generateTournament(payload: TournamentPayload, set: ChipSetPaylo
         const shouldColorUp = (
                 minimumChipIndex + 1 < set.chips.length // is there another chip to use?
             ) && (
-                !isOverflowing() && (set.chips[minimumChipIndex].value / smallBlind) < payload.color_up_threshold // is the color up demanded by the color up threshold?
+                !isOverflowing() && (set.chips[minimumChipIndex].value / smallBlind) < 0.15//payload.color_up_threshold // is the color up demanded by the color up threshold?
             ) && (
                 (set.chips[minimumChipIndex].value <= set.chips[minimumChipIndex + 1].value / payload.minimum_color_up_multiple) || // is the current chip big enough relative to the next chip in set? (because if not we might as well just wait a level or two)
                 (finalBlind / bigBlind < payload.minimum_color_up_multiple) // is the current bigBlind relative to the finalBlind below the minimum color up multiple? (this logic is probably wrong)

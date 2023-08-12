@@ -19,6 +19,11 @@ export interface SettingsPayload extends Storable {
     should_graph_levels: boolean;
 }
 
+export interface ColorUpBreakpoint {
+    denomination: number;
+    threshold: number;
+}
+
 export interface TournamentPayload extends Storable {
     set_id: string;
     tournament_name: string;
@@ -30,7 +35,7 @@ export interface TournamentPayload extends Storable {
     player_count: number;
     target_blind_ratio: number;
     target_strategy: TargetStrategy;
-    color_up_threshold: number;
+    color_up_breakpoints: ColorUpBreakpoint[];
     minimum_denomination: number;
     generator_version: number;
     level_overflow: number;

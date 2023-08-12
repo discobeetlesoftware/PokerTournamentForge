@@ -4,6 +4,7 @@ export let configuration = {
     },
     defaults: {
         minimum_denomination: 25,
+        color_up_threshold: 0.15,
         form: {
             level_duration: {
                 min: 1,
@@ -24,11 +25,6 @@ export let configuration = {
                 min: 0.05,
                 max: 5,
                 step: 0.05
-            },
-            color_up_threshold: {
-                min: 0.01,
-                max: 0.99,
-                step: 0.01
             },
             starting_stack: {
                 min: 1000,
@@ -157,9 +153,9 @@ export let configuration = {
                         name: 'Target strategy',
                         tooltip: 'How aggressively to apply the target blind ratio'
                     },
-                    color_up_threshold: {
-                        name: 'Color-up threshold',
-                        tooltip: 'The target ratio of chip to small blind, below which chips are marked for color-up'
+                    color_up_breakpoints: {
+                        name: 'Color-up breakpoints',
+                        tooltip: 'The blind value beyond which to color-up a given denomination'
                     },
                     starting_stack: {
                         name: 'Starting stack',

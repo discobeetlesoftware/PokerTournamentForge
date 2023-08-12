@@ -2,6 +2,7 @@ import {v4 as uuid} from 'uuid';
 import { ChipPayload, ChipSetPayload, SettingsPayload, TARGET_STRATEGY, TournamentLevelPayload, TournamentPayload } from './DataStoreSchemaV1';
 import { DataStore } from './DataStore';
 import { Storable, Uniquable } from './Storable';
+import { configuration } from '../configuration';
 
 export class Factory {
     static freshenStorable<T extends Storable>(value: Partial<T>, forcePreset: boolean) {
@@ -19,7 +20,7 @@ export class Factory {
     }
 
     static freshenUniquable<T extends Uniquable>(value: Partial<T>) {
-        if (DataStore.matchesNewRoute(value.id) || value?.id === '') {
+        if (!value?.id || DataStore.matchesNewRoute(value.id) || value?.id === '') {
             value.id = uuid();
         }
     }
@@ -93,7 +94,7 @@ export class Factory {
         player_count: 10,
         target_blind_ratio: 0.4,
         target_strategy: TARGET_STRATEGY.AGGRESSIVE,
-        color_up_threshold: 0.15,
+        color_up_breakpoints: [{ denomination: 25, threshold: 25 / configuration.defaults.color_up_threshold }],
         minimum_denomination: 25,
         generator_version: 1,
         level_overflow: 3,
