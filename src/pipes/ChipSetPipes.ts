@@ -2,7 +2,6 @@ import { redirect } from "react-router-dom"
 import { ActionFunction, LoaderFunctionArgs } from "react-router";
 import { DataStore, RouteAction } from "./DataStore";
 import { ChipSetPayload, TournamentPayload } from "./DataStoreSchemaV1";
-import { Factory } from "./Factory";
 import { deleteAction, getAction, listAction } from "./DataPipes";
 
 export const chipListLoader = async () => {
