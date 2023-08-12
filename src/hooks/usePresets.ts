@@ -39,7 +39,7 @@ function zipChipSet(name: string, values: number[], counts: number[]): ChipSetPa
     if (values.length !== counts.length) {
         throw Error();
     }
-    let set = Factory.chipSet({ name: name, chips: [], is_preset: true });
+    let set = Factory.chipSet({ name: name, chips: [] }, true);
     for (let [value, count] of zip(values, counts)) {
         set.chips.push(Factory.chip({
             value: value,

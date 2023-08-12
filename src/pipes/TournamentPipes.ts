@@ -2,7 +2,6 @@ import { ActionFunction, LoaderFunctionArgs, redirect } from "react-router-dom";
 import { chipListLoader } from "./ChipSetPipes";
 import { DataStore, RouteAction } from "./DataStore";
 import { ChipSetPayload, SettingsPayload, TournamentPayload } from "./DataStoreSchemaV1";
-import { Factory } from "./Factory";
 import { StorableKind, determineStorableKind } from "./Storable";
 import { deleteAction, getAction, listAction, putAction } from "./DataPipes";
 import { settingsLoader } from "./SettingsPipes";

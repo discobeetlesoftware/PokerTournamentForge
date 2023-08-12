@@ -1,16 +1,28 @@
 import {v4 as uuid} from 'uuid';
 import { ChipPayload, ChipSetPayload, SettingsPayload, TARGET_STRATEGY, TournamentLevelPayload, TournamentPayload } from './DataStoreSchemaV1';
 import { DataStore } from './DataStore';
-import { Uniquable } from './Storable';
+import { Storable, Uniquable } from './Storable';
 
 export class Factory {
-
-    private static id(values: Partial<Uniquable>): string {
-        if (values?.id) {
-            return values.id;
+    static freshenStorable<T extends Storable>(value: Partial<T>, forcePreset: boolean) {
+        if (typeof value.created_at === 'string') {
+            value.created_at = new Date(value.created_at);
         }
-        return uuid();
-    };
+        if (typeof value.updated_at === 'string') {
+            value.updated_at = new Date(value.updated_at);
+        }
+        if (!forcePreset && value.is_preset) {
+            value.is_preset = false;
+        } else if (forcePreset) {
+            value.is_preset = true;
+        }
+    }
+
+    static freshenUniquable<T extends Uniquable>(value: Partial<T>) {
+        if (DataStore.matchesNewRoute(value.id) || value?.id === '') {
+            value.id = uuid();
+        }
+    }
 
     static DEFAULT_SETTINGS: SettingsPayload = {
         should_graph_levels: false,
@@ -18,16 +30,11 @@ export class Factory {
         is_preset: false
     };
 
-    static settings(values: Partial<SettingsPayload> = {}): SettingsPayload {
-        if (typeof values.created_at === 'string') {
-            values.created_at = new Date(values.created_at);
-        }
-        if (typeof values.updated_at === 'string') {
-            values.updated_at = new Date(values.updated_at);
-        }
+    static settings(values: Partial<SettingsPayload> = {}, forcePreset = false): SettingsPayload {
+        this.freshenStorable(values, forcePreset);
+        this.freshenUniquable(values);
         return {
             ...Factory.DEFAULT_SETTINGS,
-            id: this.id(values),
             ...values
         };
     }
@@ -40,12 +47,9 @@ export class Factory {
     };
     
     static chip(values: Partial<ChipPayload> = {}): ChipPayload {
-        if (DataStore.matchesNewRoute(values.id) || values?.id === '') {
-            delete values.id;
-        }
+        this.freshenUniquable(values);
         return {
             ...Factory.DEFAULT_CHIP,
-            id: this.id(values),
             ...values
         };
     }
@@ -57,16 +61,9 @@ export class Factory {
         is_preset: false
     };
 
-    static chipSet(values: Partial<ChipSetPayload> = {}): ChipSetPayload {
-        if (DataStore.matchesNewRoute(values.id) || values?.id === '') {
-            delete values.id;
-        }
-        if (typeof values.created_at === 'string') {
-            values.created_at = new Date(values.created_at);
-        }
-        if (typeof values.updated_at === 'string') {
-            values.updated_at = new Date(values.updated_at);
-        }
+    static chipSet(values: Partial<ChipSetPayload> = {}, forcePreset = false): ChipSetPayload {
+        this.freshenStorable(values, forcePreset);
+        this.freshenUniquable(values);
         if (values.chips) {
             values.chips = [...values.chips].sort((l, r) => {
                 if (l.value === r.value) {
@@ -80,7 +77,6 @@ export class Factory {
         }
         return {
             ...Factory.DEFAULT_CHIP_SET,
-            id: this.id(values),
             ...values
         };
     };
@@ -109,19 +105,12 @@ export class Factory {
         is_preset: false
     };
 
-    static tournament(values: Partial<TournamentPayload> = {}): TournamentPayload {
-        if (DataStore.matchesNewRoute(values.id) || values?.id === '') {
-            delete values.id;
-        }
-        if (typeof values.created_at === 'string') {
-            values.created_at = new Date(values.created_at);
-        }
-        if (typeof values.updated_at === 'string') {
-            values.updated_at = new Date(values.updated_at);
-        }
+    static tournament(values: Partial<TournamentPayload> = {}, forcePreset = false): TournamentPayload {
+        this.freshenStorable(values, forcePreset);
+        this.freshenUniquable(values);
+
         return {
             ...Factory.DEFAULT_TOURNAMENT,
-            id: this.id(values),
             ...values
         };
     };
@@ -138,12 +127,9 @@ export class Factory {
     };
 
     static level(values: Partial<TournamentLevelPayload> = {}): TournamentLevelPayload {
-        if (DataStore.matchesNewRoute(values.id) || values?.id === '') {
-            delete values.id;
-        }
+        this.freshenUniquable(values);
         return {
             ...Factory.DEFAULT_LEVEL,
-            id: this.id(values),
             ...values
         };
     }

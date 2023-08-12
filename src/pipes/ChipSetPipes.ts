@@ -2,7 +2,7 @@ import { redirect } from "react-router-dom"
 import { ActionFunction, LoaderFunctionArgs } from "react-router";
 import { DataStore, RouteAction } from "./DataStore";
 import { ChipSetPayload, TournamentPayload } from "./DataStoreSchemaV1";
-import { deleteAction, getAction, listAction } from "./DataPipes";
+import { deleteAction, getAction, listAction, putAction } from "./DataPipes";
 
 export const chipListLoader = async () => {
     return listAction('chipsets');
@@ -23,15 +23,11 @@ export const chipSetEditLoader = async (args: LoaderFunctionArgs): Promise<ChipS
 
 export const chipSetUpdateAction: ActionFunction = async ({ request }) => {
     const data = await request.json() as ChipSetPayload;
-    const store = new DataStore();
-    await store.open();
-
-    if (data.is_preset) {
-        data.id = 'new';
-        data.is_preset = false;
+    const result = await putAction('chipsets', data);
+    if (!result) {
+        throw Error('Failed to update chipset');
     }
-    await store.putValue('chipsets', data);
-    return redirect(DataStore.route('chipsets', RouteAction.list));
+    return redirect(DataStore.route('chipsets', RouteAction.read, result));
 }
 
 export const chipSetDeleteAction: ActionFunction = async (args) => {
