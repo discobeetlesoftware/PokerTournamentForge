@@ -14,4 +14,9 @@ export class FormatterController {
         }
         return output.join(' ');
     }
+
+    static percentage(fraction: number): string {
+        const value = Math.round((fraction * 100)).toFixed(0);
+        return `${value}%`;
+    }
 }
