@@ -1,9 +1,9 @@
 import { Link as RouterLink } from "react-router-dom";
-import { ReactComponent as PokerChipIcon } from '../assets/pokerChip.svg';
+import { ReactComponent as PokerChipIcon } from '../../assets/pokerChip.svg';
 import { contrastColor } from 'contrast-color';
-import { ChipPayload, ChipSetPayload } from "../pipes/DataStoreSchemaV1";
-import { cssValueForNamedColor } from "../models/Color";
-import { DataStore, RouteAction } from "../pipes/DataStore";
+import { ChipPayload, ChipSetPayload } from "../../pipes/DataStoreSchemaV1";
+import { cssValueForNamedColor } from "../../models/Color";
+import { DataStore, RouteAction } from "../../pipes/DataStore";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import CardContent from "@mui/material/CardContent";
@@ -11,7 +11,7 @@ import SvgIcon from "@mui/icons-material/Edit";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import { ChipPayloadController } from "../controllers/ChipPayloadController";
+import { ChipPayloadController } from "../../controllers/ChipPayloadController";
 
 const ChipView = (chip: ChipPayload) => {
     const color = cssValueForNamedColor(chip.color);

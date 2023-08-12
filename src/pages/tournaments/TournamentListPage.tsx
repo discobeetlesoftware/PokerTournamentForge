@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import { usePageTitle } from "../../hooks/usePageTitle";
 import { SecondaryBlockHeaderView } from "../../views/SecondaryHeaderView";
 import { TournamentPayload } from "../../pipes/DataStoreSchemaV1";
-import { TournamentCardView } from "../../views/TournamentCardView";
+import { TournamentCardView } from "../../views/tournament/TournamentCardView";
 import { DataStore, RouteAction } from "../../pipes/DataStore";
 
 let strings = configuration.strings.en.tournament_list;

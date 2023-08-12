@@ -24,7 +24,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ConfirmDeleteDialog } from "../../views/ConfirmDeleteDialog";
 import { DateView } from "../../views/DateView";
-import { ChipSetTableView } from "../../views/ChipsetTableView";
+import { ChipSetTableView } from "../../views/chipset/ChipsetTableView";
 import { ChipPayloadController } from "../../controllers/ChipPayloadController";
 
 let strings = configuration.strings.en.chip;

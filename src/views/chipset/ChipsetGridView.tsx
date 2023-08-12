@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
-import { SecondaryBlockHeaderView } from "./SecondaryHeaderView";
+import { SecondaryBlockHeaderView } from "../SecondaryHeaderView";
 import { ChipsetCardView } from "./ChipsetCardView";
-import { ChipSetPayload } from "../pipes/DataStoreSchemaV1";
+import { ChipSetPayload } from "../../pipes/DataStoreSchemaV1";
 import Typography from "@mui/material/Typography";
 
 export const ChipsetGridView = (props: { title: string, placeholder?: string, chipsets: ChipSetPayload[]}) => {

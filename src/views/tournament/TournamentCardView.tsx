@@ -1,18 +1,18 @@
 import Grid from "@mui/material/Grid";
-import { TournamentPayload } from "../pipes/DataStoreSchemaV1";
+import { TournamentPayload } from "../../pipes/DataStoreSchemaV1";
 import { Link } from "react-router-dom";
-import { DataStore, RouteAction } from "../pipes/DataStore";
-import { ReactComponent as DiamondsIcon } from '../assets/diamonds.svg';
-import { ReactComponent as SpadesIcon } from '../assets/spades.svg';
-import { ReactComponent as ClubsIcon } from '../assets/clubs.svg';
-import { ReactComponent as HeartsIcon } from '../assets/hearts.svg';
+import { DataStore, RouteAction } from "../../pipes/DataStore";
+import { ReactComponent as DiamondsIcon } from '../../assets/diamonds.svg';
+import { ReactComponent as SpadesIcon } from '../../assets/spades.svg';
+import { ReactComponent as ClubsIcon } from '../../assets/clubs.svg';
+import { ReactComponent as HeartsIcon } from '../../assets/hearts.svg';
 import SvgIcon from "@mui/material/SvgIcon";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { ChipPayloadController } from "../controllers/ChipPayloadController";
-import { FormatterController } from "../controllers/FormatterController";
+import { ChipPayloadController } from "../../controllers/ChipPayloadController";
+import { FormatterController } from "../../controllers/FormatterController";
 import Chip from "@mui/material/Chip";
 
 interface TournamentCardViewProps {

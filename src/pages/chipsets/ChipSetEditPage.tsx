@@ -11,7 +11,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { contextualDescriptor, determineStorableKind } from "../../pipes/Storable";
 import { SecondaryBlockHeaderView } from "../../views/SecondaryHeaderView";
-import { ChipSetTableView } from "../../views/ChipsetTableView";
+import { ChipSetTableView } from "../../views/chipset/ChipsetTableView";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import { SelectorView } from "../../views/SelectorView";

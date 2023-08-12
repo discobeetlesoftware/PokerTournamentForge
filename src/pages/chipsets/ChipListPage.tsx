@@ -8,7 +8,7 @@ import { usePageTitle } from "../../hooks/usePageTitle";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { ChipsetGridView } from "../../views/ChipsetGridView";
+import { ChipsetGridView } from "../../views/chipset/ChipsetGridView";
 
 let strings = configuration.strings.en.chip_list;
 

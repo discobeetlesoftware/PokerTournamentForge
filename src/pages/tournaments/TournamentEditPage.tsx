@@ -24,7 +24,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import { TournamentGraphView } from "../../views/TournamentGraphView";
+import { TournamentGraphView } from "../../views/tournament/TournamentGraphView";
 import { ChipPayloadController } from "../../controllers/ChipPayloadController";
 import { FormatterController } from "../../controllers/FormatterController";
 

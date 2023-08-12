@@ -1,8 +1,8 @@
 import { DatumValue, ResponsiveLine } from '@nivo/line';
-import { SecondaryBlockHeaderView } from './SecondaryHeaderView';
-import { TournamentLevelPayload, TournamentPayload } from '../pipes/DataStoreSchemaV1';
+import { SecondaryBlockHeaderView } from '../SecondaryHeaderView';
+import { TournamentLevelPayload, TournamentPayload } from '../../pipes/DataStoreSchemaV1';
 import { ValueFormat } from '@nivo/core';
-import { FormatterController } from '../controllers/FormatterController';
+import { FormatterController } from '../../controllers/FormatterController';
 
 export interface ChartDataPacket {
     x: number;
