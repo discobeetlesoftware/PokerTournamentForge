@@ -77,7 +77,7 @@ export const ConfigurableElementView = <T extends Formatable>(props: Configurabl
                 <Tooltip title={formStrings[mapKey].tooltip}>
                     <div className='title'>
                         <Typography color='text.secondary' variant='body1' component='span'>{formStrings[mapKey].name}</Typography>
-                        <Switch size='small' checked={isVisible} onChange={(e, v) => setIsVisible(v)} sx={{marginLeft:'5px'}} />
+                        <Switch color='secondary' size='small' checked={isVisible} onChange={(e, v) => setIsVisible(v)} sx={{marginLeft:'5px'}} />
                     </div>
                 </Tooltip>
                 <ExpandableElementView isOpen={isVisible}>
