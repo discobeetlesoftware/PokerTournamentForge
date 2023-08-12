@@ -45,7 +45,7 @@ function tournamentLevelDescription(tournament: TournamentPayload) {
         aggregate.shouldCountLevel = aggregate.shouldCountLevel && !next.is_expected_conclusion;
         return aggregate;
     }, {
-        blinds: new Array<number[]>,
+        blinds: new Array<number[]>(),
         duration: 0,
         levelCount: 0,
         shouldCountLevel: true
