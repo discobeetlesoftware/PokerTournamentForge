@@ -4,11 +4,10 @@ import { configuration } from "../../configuration";
 import LocalizationController from "../../controllers/LocalizationController";
 import { Form, useActionData, useLoaderData, useParams, useSubmit } from "react-router-dom";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { TARGET_STRATEGY, TournamentLevelPayload } from "../../pipes/DataStoreSchemaV1";
+import { TARGET_STRATEGY } from "../../pipes/DataStoreSchemaV1";
 import { EnrichedTournamentPayload } from "../../pipes/TournamentPipes";
 import { Factory } from "../../pipes/Factory";
 import { SecondaryBlockHeaderView } from "../../views/SecondaryHeaderView";
-import Time from "../../models/Time";
 import { DataStore, RouteAction } from "../../pipes/DataStore";
 import { usePageTitle } from "../../hooks/usePageTitle";
 import useFlatReducer from "../../hooks/useFlatReducer";
@@ -72,48 +71,6 @@ export const TournamentEditPage = () => {
 
     const title = isCreate ? 'Create tournament' : 'Update tournament';
     usePageTitle(title);
-
-    var levelCounts = {
-        'round': 0,
-        'break': 0
-    } as Record<string, number>;
-    function levelText(level: TournamentLevelPayload): string {
-        levelCounts[level.type] += 1;
-        const prefix = level.type === 'round' ? 'Level' : 'Break';
-        return `${prefix} ${levelCounts[level.type]}`;
-    }
-
-    var time = new Time(0, tournament.start_time);
-    function levelStartTime(level: TournamentLevelPayload): string {
-        const result = time.toString();
-        time.append(level.duration || 0);
-        return result;
-    }
-
-    function levelBlind(level: TournamentLevelPayload, index: number): string {
-        if (level.type === 'break' || !level.denominations) {
-            return '';
-        }
-        const value = level.denominations[index];
-        return value.toString();
-    }
-
-    function levelClassName(level: TournamentLevelPayload, index: number): string {
-        if (level.is_expected_conclusion) {
-            return 'tournament-level-conclusion';
-        }
-        if (level.type === 'round') {
-            return index % 2 === 0 ? 'tournament-level-row' : '';
-        }
-        return 'tournament-break-row';
-    }
-
-    function levelNote(level: TournamentLevelPayload): string {
-        if (level.is_expected_conclusion) {
-            return 'Expected conclusion';
-        }
-        return level.note || '';
-    }
 
     return (
         <>
