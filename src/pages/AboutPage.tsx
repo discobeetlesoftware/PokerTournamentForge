@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import { configuration } from "../configuration";
-import HeaderView from "../components/HeaderView";
+import HeaderView from "../views/HeaderView";
 import Paper from "@mui/material/Paper";
 import { usePageTitle } from "../hooks/usePageTitle";
 

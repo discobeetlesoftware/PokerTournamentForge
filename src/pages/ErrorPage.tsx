@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 import { useLocation, useRouteError } from 'react-router-dom';
-import HeaderView from '../components/HeaderView';
+import HeaderView from '../views/HeaderView';
 import { configuration } from '../configuration';
 import { SvgIcon } from '@mui/material';
 import { ReactComponent as FlowersIcon } from '../assets/flowers.svg';

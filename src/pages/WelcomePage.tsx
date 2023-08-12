@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import { ReactComponent as PokerGameIcon } from '../assets/pokerGame.svg';
 import { configuration } from "../configuration";
 import LocalizationController from "../controllers/LocalizationController";
-import HeaderView from "../components/HeaderView";
+import HeaderView from "../views/HeaderView";
 import { usePageTitle } from "../hooks/usePageTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Theme } from "@mui/material/styles";

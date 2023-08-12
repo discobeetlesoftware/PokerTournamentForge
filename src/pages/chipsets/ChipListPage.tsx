@@ -1,14 +1,14 @@
 import { Link, useActionData, useLoaderData } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import { configuration } from "../../configuration";
-import HeaderView from "../../components/HeaderView";
+import HeaderView from "../../views/HeaderView";
 import { ChipSetPayload } from "../../pipes/DataStoreSchemaV1";
 import { DataStore, RouteAction } from "../../pipes/DataStore";
 import { usePageTitle } from "../../hooks/usePageTitle";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { ChipsetGridView } from "../../components/ChipsetGridView";
+import { ChipsetGridView } from "../../views/ChipsetGridView";
 
 let strings = configuration.strings.en.chip_list;
 

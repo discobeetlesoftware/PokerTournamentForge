@@ -1,15 +1,15 @@
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { configuration } from "../configuration";
-import HeaderView from "../components/HeaderView";
+import HeaderView from "../views/HeaderView";
 import Paper from "@mui/material/Paper";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { ConfirmDeleteDialog } from "../components/ConfirmDeleteDialog";
+import { ConfirmDeleteDialog } from "../views/ConfirmDeleteDialog";
 import { DataStore, PTDStoreTableNamesCurrent } from "../pipes/DataStore";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import { SecondaryBlockHeaderView } from "../components/SecondaryHeaderView";
+import { SecondaryBlockHeaderView } from "../views/SecondaryHeaderView";
 import WarningIcon from '@mui/icons-material/Warning';
 import { Form, useActionData, useLoaderData, useSubmit } from "react-router-dom";
 import { SettingsPayload } from "../pipes/DataStoreSchemaV1";

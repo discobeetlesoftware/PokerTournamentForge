@@ -1,15 +1,15 @@
 import Typography from "@mui/material/Typography";
 import { configuration } from "../../configuration";
-import HeaderView from "../../components/HeaderView";
+import HeaderView from "../../views/HeaderView";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import AddIcon from '@mui/icons-material/Add';
 import { Link, useActionData, useLoaderData } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import { usePageTitle } from "../../hooks/usePageTitle";
-import { SecondaryBlockHeaderView } from "../../components/SecondaryHeaderView";
+import { SecondaryBlockHeaderView } from "../../views/SecondaryHeaderView";
 import { TournamentPayload } from "../../pipes/DataStoreSchemaV1";
-import { TournamentCardView } from "../../components/TournamentCardView";
+import { TournamentCardView } from "../../views/TournamentCardView";
 import { DataStore, RouteAction } from "../../pipes/DataStore";
 
 let strings = configuration.strings.en.tournament_list;
