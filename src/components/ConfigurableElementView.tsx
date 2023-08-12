@@ -90,7 +90,9 @@ export const ConfigurableElementView = <T extends Formatable>(props: Configurabl
                         name={mapKey}
                         value={onFormat(value as any)}
                         id={mapKey}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => update({ [mapKey]: event.target.value })}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => update({ 
+                            [mapKey]: fieldTypeNumber ? Number(event.target.value) : event.target.value 
+                        })}
                     />}
                     {selectorViewProps && <SelectorView {...selectorViewProps}
                         formValue={candidate => {
