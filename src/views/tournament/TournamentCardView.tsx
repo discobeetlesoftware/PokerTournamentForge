@@ -30,7 +30,7 @@ const TournamentIcon = (props: { count: number }) => {
 }
 
 function tournamentGameDescription(tournament: TournamentPayload) {
-    return tournament.games.length === 0 ? undefined : tournament.games.join(', ');
+    return tournament.games.length === 0 ? undefined : tournament.games;
 }
 
 function tournamentLevelDescription(tournament: TournamentPayload) {
@@ -104,8 +104,8 @@ export const TournamentCardView = (props: TournamentCardViewProps) => {
     const durationText = `estimated ${duration}`;
     const actualBlindRatio = FormatterController.percentage(calculateAverageBlindRatio(description.blinds, description.levelCount));
     const targetBlindRatio = FormatterController.percentage(tournament.target_blind_ratio);
-    const targetBlindRatioText = `target blind Δ: ${targetBlindRatio}`;
-    const actualBlindRatioText = `actual Δ: ${actualBlindRatio}`;
+    const targetBlindRatioText = `target blind Δ${targetBlindRatio}`;
+    const actualBlindRatioText = `actual Δ${actualBlindRatio}`;
     return (
         <Card key={tournament.id} sx={{ minWidth: 275, maxWidth: 400 }}>
             <CardContent>
@@ -124,6 +124,7 @@ export const TournamentCardView = (props: TournamentCardViewProps) => {
                     {targetBlindRatioText}, {actualBlindRatioText}
                 </Typography>
                 <Grid container spacing={0.5} alignItems='center'>
+                    <TournamentChipView label={ChipPayloadController.tournamentDenomination(tournament.starting_stack)} />
                     <TournamentChipView label={tournamentDenominationDescription(tournament)} />
                     <TournamentChipView label={levelDuration} />
                     <TournamentChipView label={durationText} />

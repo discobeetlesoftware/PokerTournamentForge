@@ -37,7 +37,7 @@ export interface TournamentPayload extends Storable {
     break_threshold: number[];
     initial_big_blind_multiple: number;
     minimum_color_up_multiple: number;
-    games: string[];
+    games: string;
     levels: TournamentLevelPayload[];
 }
 
@@ -49,6 +49,8 @@ export interface TournamentLevelPayload extends Uniquable {
     description?: string;
     duration?: number;
     denominations?: number[];
+    breakOffset: number;
+    game?: string;
 }
 
 export interface ChipSetPayload extends Storable {

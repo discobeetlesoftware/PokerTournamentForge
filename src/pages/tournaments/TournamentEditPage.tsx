@@ -27,6 +27,7 @@ import TableBody from "@mui/material/TableBody";
 import { TournamentGraphView } from "../../views/tournament/TournamentGraphView";
 import { ChipPayloadController } from "../../controllers/ChipPayloadController";
 import { FormatterController } from "../../controllers/FormatterController";
+import { TournamentLevelsView } from "../../views/tournament/TournamentLevelsView";
 
 const strings = configuration.strings.en.tournament;
 
@@ -63,6 +64,7 @@ export const TournamentEditPage = () => {
         state.target_strategy,
         state.break_threshold,
         state.player_count,
+        state.games,
         state.target_duration]);
 
     const title = isCreate ? 'Create tournament' : 'Update tournament';
@@ -148,13 +150,7 @@ export const TournamentEditPage = () => {
                             key='games'
                             mapKey='games'
                             grid={{ md: 6, xs: 12 }}
-                            update={(v => {
-                                console.log(v.games);
-                                setState({
-                                    ...v,
-                                    games: (v.games as string).split(',').map(s => s.trim())
-                                })
-                            })}
+                            update={setState}
                             formElement={formModel}
                             defaultElement={defaultTournament} />
                         <ComponentView key='set_id' mapKey='set_id' update={v => {
@@ -206,34 +202,7 @@ export const TournamentEditPage = () => {
 
             <Paper sx={{ mt: '2vh' }}>
                 <SecondaryBlockHeaderView title={state.tournament_name.length > 0 ? state.tournament_name : 'Tournament'} />
-                <TableContainer sx={{ overflow: 'clip' }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Level</TableCell>
-                                <TableCell>Duration</TableCell>
-                                <TableCell>Start Time</TableCell>
-                                <TableCell>Small Blind</TableCell>
-                                <TableCell>Big Blind</TableCell>
-                                <TableCell>Notes</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                state.levels.map((level, index) =>
-                                    <TableRow key={'level' + index} className={levelClassName(level, index)}>
-                                        <TableCell>{levelText(level)}</TableCell>
-                                        <TableCell>{FormatterController.time(level.duration)}</TableCell>
-                                        <TableCell>{levelStartTime(level)}</TableCell>
-                                        {level.type === 'round' && <TableCell>{levelBlind(level, 0)}</TableCell>}
-                                        {level.type === 'round' && <TableCell>{levelBlind(level, 1)}</TableCell>}
-                                        <TableCell style={{ textAlign: 'right' }} colSpan={level.type === 'round' ? 1 : 3}>{levelNote(level)}</TableCell>
-                                    </TableRow>
-                                )
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <TournamentLevelsView tournament={state} />
             </Paper>
         </>
     );

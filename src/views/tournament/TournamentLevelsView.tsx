@@ -11,14 +11,14 @@ import { FormatterController } from "../../controllers/FormatterController";
 export const TournamentLevelsView = (props: { tournament: TournamentPayload }) => {
     const { tournament } = props;
 
-    var levelCounts = {
-        'round': 0,
-        'break': 0
-    } as Record<string, number>;
-    function levelText(level: TournamentLevelPayload): string {
-        levelCounts[level.type] += 1;
-        const prefix = level.type === 'round' ? 'Level' : 'Break';
-        return `${prefix} ${levelCounts[level.type]}`;
+    const hasGames = tournament.games.length > 0;
+
+    function levelText(level: TournamentLevelPayload, index: number): string {
+        if (level.type === 'round') {
+            return `Level ${index - level.breakOffset + 1}`;
+        } else {
+            return `Break ${level.breakOffset}`;
+        }
     }
 
     var time = new Time(0, tournament.start_time);
@@ -63,6 +63,7 @@ export const TournamentLevelsView = (props: { tournament: TournamentPayload }) =
                         <TableCell>Start Time</TableCell>
                         <TableCell>Small Blind</TableCell>
                         <TableCell>Big Blind</TableCell>
+                        {hasGames && <TableCell>Game</TableCell>}
                         <TableCell>Notes</TableCell>
                     </TableRow>
                 </TableHead>
@@ -70,11 +71,17 @@ export const TournamentLevelsView = (props: { tournament: TournamentPayload }) =
                     {
                         tournament.levels.map((level, index) =>
                             <TableRow key={'level' + index} className={levelClassName(level, index)}>
-                                <TableCell>{levelText(level)}</TableCell>
+                                <TableCell>{levelText(level, index)}</TableCell>
                                 <TableCell>{FormatterController.time(level.duration)}</TableCell>
                                 <TableCell>{levelStartTime(level)}</TableCell>
                                 {level.type === 'round' && <TableCell>{levelBlind(level, 0)}</TableCell>}
                                 {level.type === 'round' && <TableCell>{levelBlind(level, 1)}</TableCell>}
+                                {hasGames && 
+                                    <TableCell>
+                                        {level.type === 'round' &&
+                                            <>{level.game}</>
+                                        }
+                                    </TableCell>}
                                 <TableCell style={{ textAlign: 'right' }} colSpan={level.type === 'round' ? 1 : 3}>{levelNote(level)}</TableCell>
                             </TableRow>
                         )

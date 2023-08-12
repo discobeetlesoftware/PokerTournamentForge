@@ -100,7 +100,7 @@ export class Factory {
         break_threshold: [3, 6],
         initial_big_blind_multiple: 2,
         minimum_color_up_multiple: 2.5,
-        games: [],
+        games: '',
         levels: [],
         is_preset: false
     };
@@ -123,7 +123,8 @@ export class Factory {
         note: '',
         description: '',
         duration: 0,
-        denominations: []
+        denominations: [],
+        breakOffset: 0,
     };
 
     static level(values: Partial<TournamentLevelPayload> = {}): TournamentLevelPayload {

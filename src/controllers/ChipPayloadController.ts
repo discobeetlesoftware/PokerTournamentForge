@@ -6,8 +6,8 @@ export class ChipPayloadController {
         return this.tournamentDenomination(value);
     }
 
-    static tournamentDenomination(input?: number): string | null {
-        return input ? `T${this.shortNumberToString(input)}` : null;
+    static tournamentDenomination(input?: number): string {
+        return input ? `T${this.shortNumberToString(input)}` : '';
     }
 
     static shortNumberToString(input: number | undefined | null): string {

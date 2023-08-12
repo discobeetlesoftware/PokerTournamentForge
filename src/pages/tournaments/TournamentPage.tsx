@@ -111,7 +111,7 @@ export const TournamentPage = () => {
                         </Typography>
                         {tournament.games.length > 0 &&
                         <Typography variant='body2'>
-                            Playing {tournament.games.join(', ')}
+                            Playing {tournament.games}
                         </Typography>
                         }
                         
