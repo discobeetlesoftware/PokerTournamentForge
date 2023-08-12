@@ -33,7 +33,7 @@ export function nextBlind(smallBlind: number, bigBlind: number, target: number, 
     const nextTarget = target + (target * payload.target_blind_ratio);
     var candidate = (() => {
         switch (payload.target_strategy) {
-            case TARGET_STRATEGY.TURBO:
+            case TARGET_STRATEGY.MAX:
                 return bigBlind + (bigBlind * payload.target_blind_ratio);
             case TARGET_STRATEGY.AGGRESSIVE:
                 return smallBlind + (smallBlind * payload.target_blind_ratio);
@@ -58,7 +58,7 @@ export function nextBlind(smallBlind: number, bigBlind: number, target: number, 
     }
 
     switch (payload.target_strategy) {
-        case TARGET_STRATEGY.TURBO: {
+        case TARGET_STRATEGY.MAX: {
             closestValue = roundToDenomination((closestValue / 2) - 1, set.chips[minimumChipIndex]);
             if (closestValue === smallBlind) {
                 closestValue += set.chips[minimumChipIndex].value;

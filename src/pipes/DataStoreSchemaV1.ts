@@ -10,7 +10,7 @@ export const DataStoreTableNamesV1: [
 export const TARGET_STRATEGY = {
     STRICT: 'STRICT',
     AGGRESSIVE: 'AGGRESSIVE',
-    TURBO: 'TURBO'
+    MAX: 'MAX'
 } as const;
 type ObjectValues<T> = T[keyof T];
 export type TargetStrategy = ObjectValues<typeof TARGET_STRATEGY>;
