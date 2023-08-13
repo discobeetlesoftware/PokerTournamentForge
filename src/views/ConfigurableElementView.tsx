@@ -116,7 +116,6 @@ export const TournamentBreakpointView = (props: TournamentBreakpointViewProps) =
                     onChange={(e, v) => {
                         const updatedBreakpoints = breakpoints.map((breakpoint, index) => {
                             if (index === selectedIndex) {
-                                console.log('selectedIndex:', selectedIndex, v);
                                 return {
                                     ...breakpoint,
                                     threshold: (v as number)

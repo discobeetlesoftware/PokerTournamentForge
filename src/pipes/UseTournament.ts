@@ -1,6 +1,7 @@
 import { ChipPayload, ChipSetPayload, TARGET_STRATEGY, TournamentLevelPayload, TournamentPayload } from "./DataStoreSchemaV1";
 import { configuration } from "../configuration";
 import { Factory } from "./Factory";
+import { ChipPayloadController } from "../controllers/ChipPayloadController";
 
 const DEFAULT = configuration.defaults;
 
@@ -99,7 +100,6 @@ export function generateTournament(payload: TournamentPayload, set: ChipSetPaylo
     if (set.chips.length < 2 || payload.target_blind_ratio < 0.01) {
         return [];
     }
-    console.log('==========================');
     const games = payload.games.split(',').map(game => game.trim()).filter(game => game !== '');
     var minimumChipIndex = 0;
     var smallBlind = baseDenomination(payload, set.chips[minimumChipIndex]);
@@ -131,7 +131,6 @@ export function generateTournament(payload: TournamentPayload, set: ChipSetPaylo
     const [min, max] = payload.break_threshold;
 
     function pushBreak (level?: TournamentLevelPayload): boolean {
-        // console.log(min, max, pendingColorUpBreaks.length, level?'pushing':'+', lastBreakLevel, 'mindenom:', set.chips[minimumChipIndex].value);
         if (lastBreakLevel < min) {
             if (level) {
                 pendingColorUpBreaks.push(level);
@@ -164,6 +163,11 @@ export function generateTournament(payload: TournamentPayload, set: ChipSetPaylo
         return breakLevel !== null;
     };
 
+    var breakpointMap: Record<number, number> = {};
+    for (const breakpoint of payload.color_up_breakpoints) {
+        breakpointMap[breakpoint.denomination] = breakpoint.threshold;
+    }
+
     var levelIndex = 0;
     while (!isOverflowing() || shouldOverflow()) {
         let level = Factory.level({
@@ -175,32 +179,41 @@ export function generateTournament(payload: TournamentPayload, set: ChipSetPaylo
             game: games.length > 0 ? games[levelIndex % games.length] : undefined
         });
         levels.push(level);
-        // console.log('pushed level ', levels.length, level.denominations);
         lastBreakLevel += 1;
 
-        const shouldColorUp = (
+        function shouldColorUp() {
+            return (
                 minimumChipIndex + 1 < set.chips.length // is there another chip to use?
             ) && (
-                !isOverflowing() && (set.chips[minimumChipIndex].value / smallBlind) < 0.15//payload.color_up_threshold // is the color up demanded by the color up threshold?
+                !isOverflowing() && smallBlind >= breakpointMap[set.chips[minimumChipIndex].value]
+                // !isOverflowing() && (set.chips[minimumChipIndex].value / smallBlind) < payload.color_up_threshold // is the color up demanded by the color up threshold?
             ) && (
-                (set.chips[minimumChipIndex].value <= set.chips[minimumChipIndex + 1].value / payload.minimum_color_up_multiple) || // is the current chip big enough relative to the next chip in set? (because if not we might as well just wait a level or two)
-                (finalBlind / bigBlind < payload.minimum_color_up_multiple) // is the current bigBlind relative to the finalBlind below the minimum color up multiple? (this logic is probably wrong)
+                // (set.chips[minimumChipIndex].value <= set.chips[minimumChipIndex + 1].value / payload.minimum_color_up_multiple) || // is the current chip big enough relative to the next chip in set? (because if not we might as well just wait a level or two)
+                (finalBlind / bigBlind > payload.minimum_color_up_multiple) // is the current bigBlind relative to the finalBlind below the minimum color up multiple? (this logic is probably wrong)
             );
-        if (shouldColorUp) {
+        }
+
+        var breakChips: ChipPayload[] = [];
+        while (shouldColorUp()) {
             const colorUpChip = set.chips[minimumChipIndex];
             minimumChipIndex += 1;
             if (colorUpChip) {
-                lastBreakLevel += pushBreak(Factory.level({
-                    type: 'break',
-                    duration: payload.break_duration,
-                    denominations: [colorUpChip.value],
-                    note: `Color up T${colorUpChip.value}`
-                })) ? -lastBreakLevel : 0;
+                breakChips.push(colorUpChip);
             }
             if (!set.chips[minimumChipIndex]) {
                 console.warn('Not enough chips to generate complete structure with given configuration', JSON.stringify(payload));
                 break;
             }
+        }
+
+        if (breakChips.length > 0) {
+            const note = breakChips.map(chip => ChipPayloadController.format(chip)).join(', ');
+            lastBreakLevel += pushBreak(Factory.level({
+                type: 'break',
+                duration: payload.break_duration,
+                denominations: breakChips.map(chip => chip.value),
+                note: `Color up ${note}`
+            })) ? -lastBreakLevel : 0;
         } else if (!isOverflowing()) {
             lastBreakLevel += pushBreak() ? -lastBreakLevel : 0;
         }
