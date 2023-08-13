@@ -110,7 +110,7 @@ export const TournamentEditPage = () => {
                             formValue: (chip) => chip!.value.toString()
                         }} />
                         <ConfigurableElementView key='target_strategy' mapKey='target_strategy' update={setState} formElement={formModel} defaultElement={defaultTournament} format={strategy => {
-                            return strategy;
+                            return strategy.toLocaleLowerCase();
                         }} selectorViewProps={{
                             values: Object.keys(TARGET_STRATEGY),
                             selected: state.target_strategy,
