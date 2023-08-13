@@ -118,12 +118,12 @@ export const TournamentEditPage = () => {
                         }} />
                         <ConfigurableElementView key='level_duration' mapKey='level_duration' update={setState} formElement={formModel} defaultElement={defaultTournament} />
                         <ConfigurableElementView key='break_duration' mapKey='break_duration' update={setState} formElement={formModel} defaultElement={defaultTournament} />
-                        <ConfigurableElementView key='break_threshold' mapKey='break_threshold' update={setState} formElement={formModel} defaultElement={defaultTournament} />
-                        <ConfigurableElementView key='target_blind_ratio' mapKey='target_blind_ratio' update={setState} formElement={formModel} defaultElement={defaultTournament} />
-                        <TournamentBreakpointView breakpoints={breakpoints} update={setState} chipset={selectedSet} />
                         <ConfigurableElementView key='starting_stack' mapKey='starting_stack' update={setState} formElement={formModel} defaultElement={defaultTournament} />
                         <ConfigurableElementView key='player_count' mapKey='player_count' update={setState} formElement={formModel} defaultElement={defaultTournament} />
-                        <ConfigurableElementView key='target_duration' mapKey='target_duration' update={setState} formElement={formModel} defaultElement={defaultTournament} />
+                        {/* <ConfigurableElementView key='target_duration' mapKey='target_duration' update={setState} formElement={formModel} defaultElement={defaultTournament} /> */}
+                        <ConfigurableElementView key='target_blind_ratio' mapKey='target_blind_ratio' update={setState} formElement={formModel} defaultElement={defaultTournament} />
+                        <TournamentBreakpointView breakpoints={breakpoints} update={setState} chipset={selectedSet} />
+                        <ConfigurableElementView key='break_threshold' mapKey='break_threshold' update={setState} formElement={formModel} defaultElement={defaultTournament} />
                     </Grid>
                     <div style={{ padding: '20px' }}>
                         <Button type='submit' startIcon={<SaveAltIcon />} color='secondary' variant='contained'>{isCreate ? strings.actions.create : strings.actions.update}</Button>
