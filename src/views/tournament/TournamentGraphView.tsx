@@ -81,22 +81,10 @@ const createGraphPayload = (tournament: TournamentPayload): { values: ChartData[
     return { values: results, gridXLabels: xValueLabels };
 }
 
-// export type ScaleTimeSpec = {
-//     type: 'time';
-//     format?: 'native' | string;
-//     precision?: TIME_PRECISION;
-//     min?: 'auto' | Date | string;
-//     max?: 'auto' | Date | string;
-//     useUTC?: boolean;
-//     nice?: boolean;
-// };
-
 const minuteFormatter: ValueFormat<DatumValue> = (input) => {
     const minutes = input as number;
     return FormatterController.time(minutes);
 };
-
-//export type TicksSpec<Value extends ScaleValue> = number | string | Value[];
 
 export const TournamentGraphView = (props: { title: string, tournament: TournamentPayload }) => {
     const { title, tournament } = props;

@@ -5,7 +5,7 @@ import HeaderView from "../views/HeaderView";
 import Paper from "@mui/material/Paper";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ConfirmDeleteDialog } from "../views/ConfirmDeleteDialog";
-import { DataStore, PTDSchemaCurrent, PTDStoreTableNamesCurrent } from "../pipes/DataStore";
+import { PTDSchemaCurrent } from "../pipes/DataStore";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
