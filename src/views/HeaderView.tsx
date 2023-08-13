@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 interface HeaderProps {
     children?: ReactNode;

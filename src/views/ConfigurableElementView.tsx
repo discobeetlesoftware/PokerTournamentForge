@@ -1,4 +1,4 @@
-import { Dispatch, useCallback, ChangeEvent, useState, ReactNode, useMemo } from "react";
+import { Dispatch, useCallback, ChangeEvent, useState } from "react";
 import { SelectorViewProps, SelectorView } from "./SelectorView";
 import { configuration } from "../configuration";
 import Grid, { GridSize } from "@mui/material/Grid";
@@ -73,12 +73,6 @@ export const TournamentBreakpointView = (props: TournamentBreakpointViewProps) =
         )});
     }, [update, defaultThreshold]);
 
-    /*
-    didSelectValue: (value: T | undefined) => void;
-    format: (value?: T) => string;
-    formValue: (value?: T) => string;
-
-    */
     return (
         <Grid item xs={6} md={4} lg={3} xl={2}>
 
@@ -205,7 +199,7 @@ export const ConfigurableElementView = <T extends Formatable>(props: Configurabl
                         max={configs[mapKey].max}
                         value={value as number}
                         valueLabelDisplay={fieldTypeString ? 'off' : 'auto'}
-                        onChange={(e, v) => update({ [mapKey]: v })}
+                        onChange={(_, v) => update({ [mapKey]: v })}
                     />}
                     <div className='action'>
                         <Button color='secondary' variant='contained' size='small' onClick={onReset} disabled={!canReset}>Reset</Button>

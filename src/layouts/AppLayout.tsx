@@ -53,9 +53,7 @@ export const AppLayout = () => {
                         component="nav"
                         sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
                     >
-                        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                         <Drawer
-                            // container={container}
                             variant="temporary"
                             open={panelOpen}
                             onClose={handleDrawerToggle}
