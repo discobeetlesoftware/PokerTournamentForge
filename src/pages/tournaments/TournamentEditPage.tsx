@@ -10,7 +10,7 @@ import { DataStore, RouteAction } from "../../pipes/DataStore";
 import { usePageTitle } from "../../hooks/usePageTitle";
 import useFlatReducer from "../../hooks/useFlatReducer";
 import { ConfigurableElementView, FormModel, TournamentBreakpointView } from "../../views/ConfigurableElementView";
-import { generateTournament } from "../../pipes/UseTournament";
+import { generateTournament } from "../../pipes/TournamentGenerator";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";

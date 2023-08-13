@@ -1,6 +1,6 @@
 import { configuration } from "../configuration";
 import { Factory } from "../pipes/Factory";
-import { baseDenomination, estimateFinalBlind, nextBlind, roundToDenomination } from "../pipes/UseTournament";
+import { baseDenomination, estimateFinalBlind, nextBlind, roundToDenomination } from "../pipes/TournamentGenerator";
 
 const DEFAULT = configuration.defaults;
 
