@@ -62,11 +62,6 @@ img.header, svg.header {
     margin-right: 1em;
 }
 
-.poker-game-icon {
-    width: 8em;
-    height: 8em;
-}
-
 .discobeetle-logo {
     padding-top: 5px;
     padding-left: auto;
@@ -87,12 +82,6 @@ div.discobeetle-logo a {
     clear: left;
 }
 
-.card-view {
-    padding: 10px;
-    border: 2px solid #D3CEC4;
-    border-radius: 20px;
-}
-
 a {
     text-decoration: none;
     font-weight: 800;
@@ -101,74 +90,3 @@ a {
 a:hover {
     text-decoration: underline;
 }
-
-.panel {
-    border-radius: 10px;
-    padding: 20px;
-}
-
-.chip input {
-    width: 2em;
-}
-
-#tournament_elements {
-    border-spacing: 0px;
-}
-
-#tournament_elements th {
-    padding: 8px;
-}
-
-#tournament_elements td {
-    text-align: center;
-    padding: 8px;
-}
-
-#tournament_elements thead>tr {
-    background-color: #102A43;
-    color: #F0F4F8;
-}
-
-#tournament_elements tbody>tr:nth-child(odd) {
-    background-color: #BCCCDC;
-}
-
-.item {
-    position: relative;
-    margin: 10px 0;
-}
-
-.input {
-    width: calc(100%);
-}
-
-.columns {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.columns>div.third {
-    width: 31%;
-}
-
-.control_panel {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-/* button {
-    border: none;
-    border-radius: 5px;
-    background: #0C6B58;
-    font-size: 18px;
-    color: #fff;
-    cursor: pointer;
-    font-weight: 800;
-    margin: 5px;
-}
-
-button:hover {
-    background: #3EBD93;
-} */
