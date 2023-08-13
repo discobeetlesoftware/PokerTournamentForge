@@ -10,21 +10,13 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { SecondaryBlockHeaderView } from "../views/SecondaryHeaderView";
-import WarningIcon from '@mui/icons-material/Warning';
 import { Form, useActionData, useLoaderData, useSubmit } from "react-router-dom";
 import { SettingsPayload } from "../pipes/DataStoreSchemaV1";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import Snackbar from "@mui/material/Snackbar";
 import { clearAction } from "../pipes/PresetPipes";
 import { StoreNames } from "idb";
-
-export const DestroyButton = (props: { title: string, onConfirmDestroy: () => void }) => {
-    return (
-        <div className='destroy-button'>
-            <Button color='warning' startIcon={<WarningIcon />} variant='outlined' size='large' onClick={props.onConfirmDestroy}>{props.title}</Button>
-        </div>
-    );
-}
+import { DestroyButton } from "../views/DestroyButton";
 
 export const SettingsPage = () => {
     const [deleteCandidate, setDeleteCandidate] = useState<StoreNames<PTDSchemaCurrent>[] | null>(null);
