@@ -5,7 +5,7 @@ import HeaderView from "../views/HeaderView";
 import Paper from "@mui/material/Paper";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ConfirmDeleteDialog } from "../views/ConfirmDeleteDialog";
-import { DataStore, PTDStoreTableNamesCurrent } from "../pipes/DataStore";
+import { DataStore, PTDSchemaCurrent, PTDStoreTableNamesCurrent } from "../pipes/DataStore";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
@@ -15,6 +15,8 @@ import { Form, useActionData, useLoaderData, useSubmit } from "react-router-dom"
 import { SettingsPayload } from "../pipes/DataStoreSchemaV1";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import Snackbar from "@mui/material/Snackbar";
+import { clearAction } from "../pipes/PresetPipes";
+import { StoreNames } from "idb";
 
 export const DestroyButton = (props: { title: string, onConfirmDestroy: () => void }) => {
     return (
@@ -25,7 +27,7 @@ export const DestroyButton = (props: { title: string, onConfirmDestroy: () => vo
 }
 
 export const SettingsPage = () => {
-    const [deleteCandidate, setDeleteCandidate] = useState<string | null>(null);
+    const [deleteCandidate, setDeleteCandidate] = useState<StoreNames<PTDSchemaCurrent>[] | null>(null);
     const [isUpdating, setIsUpdating] = useState(false);
     const submit = useSubmit();
     const [settings, updateSettings] = useState(useLoaderData() as SettingsPayload)
@@ -40,10 +42,7 @@ export const SettingsPage = () => {
         setDeleteCandidate(null);
         if (isConfirmed && token) {
             setIsUpdating(true);
-            const store = new DataStore();
-            store.open().then(() => {
-                return Promise.all(PTDStoreTableNamesCurrent.filter(table => table === deleteCandidate || '*' === deleteCandidate).map(table => store.clear(table)))
-            }).catch(e => {
+            clearAction(deleteCandidate).catch(e => {
                 console.error('Failed to delete ', token, e);
             }).finally(() => {
                 setIsUpdating(false);
@@ -93,9 +92,9 @@ export const SettingsPage = () => {
                         </Form>
                         <div>
                             <SecondaryBlockHeaderView title='Danger zone' />
-                            <DestroyButton title='Reset app' onConfirmDestroy={() => setDeleteCandidate('*')} />
-                            <DestroyButton title='Reset tournaments' onConfirmDestroy={() => setDeleteCandidate('tournaments')} />
-                            <DestroyButton title='Reset chip sets' onConfirmDestroy={() => setDeleteCandidate('chipsets')} />
+                            <DestroyButton title='Reset app' onConfirmDestroy={() => setDeleteCandidate(['tournaments', 'chipsets', 'settings'])} />
+                            <DestroyButton title='Reset tournaments' onConfirmDestroy={() => setDeleteCandidate(['tournaments'])} />
+                            <DestroyButton title='Reset chip sets' onConfirmDestroy={() => setDeleteCandidate(['chipsets'])} />
                         </div>
                     </div>
                 }
