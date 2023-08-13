@@ -15,7 +15,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { TournamentGraphView } from "../../views/tournament/TournamentGraphView";
-import { ChipPayloadController } from "../../controllers/ChipPayloadController";
+import { FormatterController } from "../../controllers/FormatterController";
 import { TournamentLevelsView } from "../../views/tournament/TournamentLevelsView";
 import { TournamentEditSynopsisView } from "../../views/tournament/TournamentEditSynopsisView";
 
@@ -102,7 +102,7 @@ export const TournamentEditPage = () => {
                         <ConfigurableElementView key='minimum_denomination' mapKey='minimum_denomination' update={v => {
                             setState({ 'minimum_denomination': Number(v.minimum_denomination) })
                         }} formElement={formModel} defaultElement={defaultTournament} format={chip => {
-                            return ChipPayloadController.format(chip);
+                            return FormatterController.chip(chip);
                         }} selectorViewProps={{
                             values: selectedSet?.chips || [],
                             selected: selectedChip || selectedSet.chips[0],

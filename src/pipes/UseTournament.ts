@@ -1,7 +1,7 @@
 import { ChipPayload, ChipSetPayload, TARGET_STRATEGY, TournamentLevelPayload, TournamentPayload } from "./DataStoreSchemaV1";
 import { configuration } from "../configuration";
 import { Factory } from "./Factory";
-import { ChipPayloadController } from "../controllers/ChipPayloadController";
+import { FormatterController } from "../controllers/FormatterController";
 
 const DEFAULT = configuration.defaults;
 
@@ -207,7 +207,7 @@ export function generateTournament(payload: TournamentPayload, set: ChipSetPaylo
         }
 
         if (breakChips.length > 0) {
-            const note = breakChips.map(chip => ChipPayloadController.format(chip)).join(', ');
+            const note = breakChips.map(chip => FormatterController.chip(chip)).join(', ');
             lastBreakLevel += pushBreak(Factory.level({
                 type: 'break',
                 duration: payload.break_duration,

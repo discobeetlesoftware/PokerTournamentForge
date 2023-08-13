@@ -11,13 +11,13 @@ import SvgIcon from "@mui/icons-material/Edit";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import { ChipPayloadController } from "../../controllers/ChipPayloadController";
+import { FormatterController } from "../../controllers/FormatterController";
 
 const ChipView = (chip: ChipPayload) => {
     const color = cssValueForNamedColor(chip.color);
     return (
         <Grid item key={chip.value}>
-            <Chip label={ChipPayloadController.shortNumberToString(chip.value)}
+            <Chip label={FormatterController.shortNumberToString(chip.value)}
                 variant='outlined'
                 sx={{
                     borderColor: 'black',

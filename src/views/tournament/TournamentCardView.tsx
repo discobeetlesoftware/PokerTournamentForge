@@ -11,7 +11,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { ChipPayloadController } from "../../controllers/ChipPayloadController";
 import { FormatterController } from "../../controllers/FormatterController";
 import Chip from "@mui/material/Chip";
 
@@ -66,7 +65,7 @@ function tournamentFirstLevelBaseDenomination(tournament: TournamentPayload): nu
 
 function tournamentDenominationDescription(tournament: TournamentPayload) {
     const denom = tournament.minimum_denomination > 0 ? tournament.minimum_denomination : tournamentFirstLevelBaseDenomination(tournament);
-    return denom ? `T${ChipPayloadController.shortNumberToString(denom)} base` : '';
+    return denom ? `${FormatterController.tournamentDenomination(denom)} base` : '';
 }
 
 interface TournamentChipViewProps {
@@ -124,7 +123,7 @@ export const TournamentCardView = (props: TournamentCardViewProps) => {
                     {targetBlindRatioText}, {actualBlindRatioText}
                 </Typography>
                 <Grid container spacing={0.5} alignItems='center'>
-                    <TournamentChipView label={ChipPayloadController.tournamentDenomination(tournament.starting_stack)} />
+                    <TournamentChipView label={FormatterController.tournamentDenomination(tournament.starting_stack)} />
                     <TournamentChipView label={tournamentDenominationDescription(tournament)} />
                     <TournamentChipView label={levelDuration} />
                     <TournamentChipView label={durationText} />

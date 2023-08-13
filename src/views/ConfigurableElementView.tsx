@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
 import { ExpandableElementView } from "./ExpandableElementView";
 import { ChipSetPayload, ColorUpBreakpoint, TournamentPayload } from "../pipes/DataStoreSchemaV1";
-import { ChipPayloadController } from "../controllers/ChipPayloadController";
+import { FormatterController } from "../controllers/FormatterController";
 
 export interface Formatable {
     toString(): string;
@@ -102,7 +102,7 @@ export const TournamentBreakpointView = (props: TournamentBreakpointViewProps) =
                     }}
                     format={candidate => {
                         const chip = candidate || chipset.chips[0];
-                        return ChipPayloadController.shortNumberToString(chip.value)
+                        return FormatterController.chip(chip)
                     }}
                 />
                 <Slider

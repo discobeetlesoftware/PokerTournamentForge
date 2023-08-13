@@ -22,7 +22,7 @@ import { StorableKind } from "../../pipes/Storable";
 import SaveIcon from '@mui/icons-material/Save';
 import Snackbar from "@mui/material/Snackbar";
 import { useSharableLinkBuilder } from "../../hooks/useSharableLinkBuilder";
-import { ChipPayloadController } from "../../controllers/ChipPayloadController";
+import { FormatterController } from "../../controllers/FormatterController";
 import { putAction } from "../../pipes/DataPipes";
 
 const strings = configuration.strings.en.tournament;
@@ -107,7 +107,7 @@ export const TournamentPage = () => {
                     </span>
                     <div>
                         <Typography variant='body2'>
-                            {getOriginString(kind)} tournament, base {ChipPayloadController.tournamentDenomination(tournament.minimum_denomination)}.
+                            {getOriginString(kind)} tournament, base {FormatterController.tournamentDenomination(tournament.minimum_denomination)}.
                         </Typography>
                         {tournament.games.length > 0 &&
                         <Typography variant='body2'>

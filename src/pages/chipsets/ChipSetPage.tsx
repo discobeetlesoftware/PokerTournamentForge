@@ -25,7 +25,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ConfirmDeleteDialog } from "../../views/ConfirmDeleteDialog";
 import { DateView } from "../../views/DateView";
 import { ChipSetTableView } from "../../views/chipset/ChipsetTableView";
-import { ChipPayloadController } from "../../controllers/ChipPayloadController";
+import { FormatterController } from "../../controllers/FormatterController";
 
 let strings = configuration.strings.en.chip;
 
@@ -35,7 +35,7 @@ const ChipRow = (props: { chip: ChipPayload }) => {
     const textColor = contrastColor({ bgColor: color });
     return (
         <TableRow>
-            <TableCell>{ChipPayloadController.shortNumberToString(chip.value)}</TableCell>
+            <TableCell>{FormatterController.shortNumberToString(chip.value)}</TableCell>
             <TableCell>{chip.count}</TableCell>
             <TableCell sx={{ backgroundColor: color, color: textColor }}>{chip.color}</TableCell>
         </TableRow>
@@ -52,8 +52,8 @@ const TournamentRow = (props: { tournament: TournamentPayload, chips: ChipPayloa
                 <IconButton color='secondary' component={Link} to={DataStore.route('tournaments', RouteAction.read, tournament)}><NavigateNextIcon /></IconButton>
             </TableCell>
             <TableCell>{tournament.player_count}</TableCell>
-            <TableCell>{ChipPayloadController.shortNumberToString(tournament.starting_stack)}</TableCell>
-            <TableCell>{ChipPayloadController.format(minimumChip) || 'Unconfigured'}</TableCell>
+            <TableCell>{FormatterController.shortNumberToString(tournament.starting_stack)}</TableCell>
+            <TableCell>{FormatterController.chip(minimumChip) || 'Unconfigured'}</TableCell>
 
         </TableRow>
     );
