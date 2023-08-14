@@ -57,8 +57,8 @@ export let configuration = {
             },
             welcome: {
                 title: 'Welcome',
-                overview: '%app.name% is a web app which allows you to create structures for poker tournaments. You can optionally add your own chip sets. If you input chip quantities, the app will generate proposed starting stacks. There are pre-configured tournaments which can be customized or used as-is.',
-                detail: 'All the data you input stays entirely on your device.',
+                overview: '%app.name% allows you to create structures for poker tournaments. There are pre-configured tournaments. Those can be used as-is, you can clone them, or design a structure from scratch.',
+                detail: 'All the data you input stays entirely on your device. Your device may periodically delete this data store on the browser version. To ensure data retention, install the app on your device.',
                 contact: 'Missing a feature? Find a bug?',
                 lmk: 'Let me know!'
             },
