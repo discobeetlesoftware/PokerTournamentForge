@@ -5,8 +5,8 @@ export interface Uniquable {
 }
 
 export interface Storable extends Uniquable {
-    created_at?: Date;
-    updated_at?: Date;
+    created_at: Date;
+    updated_at: Date;
     is_preset: boolean;
 }
 

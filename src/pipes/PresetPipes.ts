@@ -30,11 +30,13 @@ function* zip<L, R>(left: L[], right: R[]): Generator<[L, R], void, void> {
     }
 }
 
-function zipChipSet(name: string, values: number[], counts: number[]): ChipSetPayload {
+function zipChipSet(name: string, offset: number, values: number[], counts: number[]): ChipSetPayload {
     if (values.length !== counts.length) {
         throw Error();
     }
-    let set = Factory.chipSet({ name: name, chips: [] }, true);
+    const date = new Date();
+    date.setMilliseconds(date.getMilliseconds() + offset);
+    let set = Factory.chipSet({ name: name, created_at: date, chips: [] }, true);
     for (let [value, count] of zip(values, counts)) {
         set.chips.push(Factory.chip({
             value: value,
@@ -62,18 +64,21 @@ export const chipsetPresets = () => {
     return [
         zipChipSet(
             'Default',
+            1,
             [25, 100, 500, 1000, 5000, 25_000, 100_000, 500_000, 2_500_000],
             [300, 300, 100, 400, 300, 200, 200, 150, 500]
         ),
 
         zipChipSet(
             'Classic',
+            2,
             [25, 100, 500, 1000, 5000],
             [160, 160, 80, 160, 28]
         ),
 
         zipChipSet(
-            'Big Money MN',
+            'Big Money',
+            3,
             [500, 1000, 5000, 25000, 100000],
             [60, 120, 120, 80, 20]
         )

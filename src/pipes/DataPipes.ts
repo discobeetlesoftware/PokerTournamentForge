@@ -39,7 +39,10 @@ export const listAction = async <StoreName extends StoreNames<PTDSchemaCurrent>>
     const store = new DataStore();
     await store.open();
     let results = await store.getAllValue(tableName);
-    return results || [];
+    return (results || []).sort((a, b) => {
+        console.log(a.created_at.getMilliseconds() - b.created_at.getMilliseconds());
+        return a.created_at.getMilliseconds() - b.created_at.getMilliseconds()
+    });
 }
 
 export const getAction = async <StoreName extends StoreNames<PTDSchemaCurrent>>(tableName: StoreName, query?: string | IDBKeyRange) => {

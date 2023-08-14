@@ -28,6 +28,8 @@ export class Factory {
     static DEFAULT_SETTINGS: SettingsPayload = {
         should_graph_levels: false,
         id: 'user',
+        created_at: new Date(),
+        updated_at: new Date(),
         is_preset: false
     };
 
@@ -59,6 +61,8 @@ export class Factory {
         name: '',
         chips: [],
         id: 'new',
+        created_at: new Date(),
+        updated_at: new Date(),
         is_preset: false
     };
 
@@ -85,6 +89,8 @@ export class Factory {
     static DEFAULT_TOURNAMENT: TournamentPayload = {
         id: 'new',
         set_id: '',
+        created_at: new Date(),
+        updated_at: new Date(),
         tournament_name: '',
         start_time: 0,
         target_duration: 0,
