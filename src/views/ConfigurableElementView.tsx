@@ -71,7 +71,7 @@ export const TournamentBreakpointView = (props: TournamentBreakpointViewProps) =
                 return { denomination: chip.value, threshold: chip.value / defaultThreshold };
             }
         )});
-    }, [update, defaultThreshold]);
+    }, [update, defaultThreshold, chipset]);
 
     return (
         <Grid item xs={6} md={4} lg={3} xl={2}>

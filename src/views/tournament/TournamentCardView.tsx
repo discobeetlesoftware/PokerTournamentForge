@@ -28,10 +28,6 @@ const TournamentIcon = (props: { count: number }) => {
     );
 }
 
-function tournamentGameDescription(tournament: TournamentPayload) {
-    return tournament.games.length === 0 ? undefined : tournament.games;
-}
-
 function tournamentLevelDescription(tournament: TournamentPayload) {
     return tournament.levels.reduce((aggregate, next) => {
         if (next.type === 'round') {

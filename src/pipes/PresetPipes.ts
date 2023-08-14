@@ -376,7 +376,7 @@ export const populateAction = async <StoreName extends StoreNames<PTDSchemaCurre
         throw Error('Failed to open store');
     }
     return Promise.all(tableNames.map(name => {
-        store.countAll(name).then(count => {
+        return store.countAll(name).then(count => {
             if (count === 0) {
                 return store.putBulkValue(name, generatePresets(name));
             } else {

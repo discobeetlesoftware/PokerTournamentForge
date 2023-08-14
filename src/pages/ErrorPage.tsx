@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { redirect, useLocation, useNavigate, useRouteError } from 'react-router-dom';
+import { useLocation, useNavigate, useRouteError } from 'react-router-dom';
 import HeaderView from '../views/HeaderView';
 import { configuration } from '../configuration';
 import { SvgIcon } from '@mui/material';
