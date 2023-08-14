@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/PokerTournamentForge/static/css/main.c0af8142.css",
-    "main.js": "/PokerTournamentForge/static/js/main.c2f52517.js",
+    "main.css": "/PokerTournamentForge/static/css/main.94946bc9.css",
+    "main.js": "/PokerTournamentForge/static/js/main.6e61bab1.js",
     "static/media/beetle.png": "/PokerTournamentForge/static/media/beetle.53617fc7d46374955a24.png",
     "static/media/pokerGame.svg": "/PokerTournamentForge/static/media/pokerGame.58d886cacc8f8958e6200553fda4fa2a.svg",
     "static/media/flowers.svg": "/PokerTournamentForge/static/media/flowers.00347fd6ea4dc04d80c60503dc30de79.svg",
@@ -12,11 +12,11 @@
     "static/media/spades.svg": "/PokerTournamentForge/static/media/spades.1ce142b9145919b62aed28dfdfffaf98.svg",
     "static/media/hearts.svg": "/PokerTournamentForge/static/media/hearts.6890703b93db380402b05f9d9fad0f64.svg",
     "static/media/diamonds.svg": "/PokerTournamentForge/static/media/diamonds.2e79d58a43b49ca85d507cba0951f787.svg",
-    "main.c0af8142.css.map": "/PokerTournamentForge/static/css/main.c0af8142.css.map",
-    "main.c2f52517.js.map": "/PokerTournamentForge/static/js/main.c2f52517.js.map"
+    "main.94946bc9.css.map": "/PokerTournamentForge/static/css/main.94946bc9.css.map",
+    "main.6e61bab1.js.map": "/PokerTournamentForge/static/js/main.6e61bab1.js.map"
   },
   "entrypoints": [
-    "static/css/main.c0af8142.css",
-    "static/js/main.c2f52517.js"
+    "static/css/main.94946bc9.css",
+    "static/js/main.6e61bab1.js"
   ]
 }
