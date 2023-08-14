@@ -102,7 +102,7 @@ export class Factory {
         target_strategy: TARGET_STRATEGY.AGGRESSIVE,
         color_up_breakpoints: [{ denomination: 25, threshold: 25 / configuration.defaults.color_up_threshold }],
         minimum_denomination: 25,
-        generator_version: 1,
+        generator_version: 2,
         level_overflow: 3,
         break_threshold: [3, 6],
         initial_big_blind_multiple: 2,
