@@ -58,6 +58,9 @@ export const getAction = async <StoreName extends StoreNames<PTDSchemaCurrent>>(
 export const putAction = async <StoreName extends StoreNames<PTDSchemaCurrent>, ValueType extends StoreValue<PTDSchemaCurrent, StoreName>>(tableName: StoreName, candidate: Partial<ValueType>) => {
     const store = new DataStore();
     await store.open();
+    if (candidate.is_preset) {
+        candidate.id = '';
+    }
     const value = generate(tableName, candidate);
     return store.putValue(tableName, value).then(() => { return value }, () => { return undefined });
 }
