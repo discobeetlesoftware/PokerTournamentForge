@@ -83,7 +83,7 @@ export let configuration = {
             chip_list: {
                 title: 'Chip sets',
                 no_customs: 'No custom sets to show.',
-                overview: 'Added chip sets will appear here. Chip denominations will be used to determine the blind structure. Chip quantities will be used to create suggested starting stacks.',
+                overview: 'Added chip sets will appear here. Chip denominations will be used to determine the blind structure.',
                 preset: 'Pre-set',
                 custom: 'Custom',
                 actions: {
