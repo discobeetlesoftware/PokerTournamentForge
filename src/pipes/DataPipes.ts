@@ -40,7 +40,6 @@ export const listAction = async <StoreName extends StoreNames<PTDSchemaCurrent>>
     await store.open();
     let results = await store.getAllValue(tableName);
     return (results || []).sort((a, b) => {
-        console.log(a.created_at.getMilliseconds() - b.created_at.getMilliseconds());
         return a.created_at.getMilliseconds() - b.created_at.getMilliseconds()
     });
 }
