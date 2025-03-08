@@ -96,7 +96,7 @@ const routes = createRoutesFromElements(
   </Route>,
 );
 
-const router = createBrowserRouter(routes, { basename: "/" });
+const router = createBrowserRouter(routes);
 
 function App() {
   usePresets();
