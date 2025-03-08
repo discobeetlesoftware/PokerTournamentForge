@@ -3,7 +3,7 @@ import { ChipPayload } from "../pipes/DataStoreSchemaV1";
 export class FormatterController {
     static time(minutes?: number, forceFull: boolean = false): string {
         if (!minutes || minutes === 0) {
-            return '';
+            return "";
         }
         const hours = Math.floor(minutes / 60);
         minutes = hours > 0 ? minutes % 60 : minutes;
@@ -14,11 +14,11 @@ export class FormatterController {
         if (minutes > 0 || forceFull) {
             output.push(`${minutes}m`);
         }
-        return output.join(' ');
+        return output.join(" ");
     }
 
     static percentage(fraction: number): string {
-        const value = Math.round((fraction * 100)).toFixed(0);
+        const value = Math.round(fraction * 100).toFixed(0);
         return `${value}%`;
     }
 
@@ -28,12 +28,12 @@ export class FormatterController {
     }
 
     static tournamentDenomination(input?: number): string {
-        return input ? `T${this.shortNumberToString(input)}` : '';
+        return input ? `T${this.shortNumberToString(input)}` : "";
     }
 
     static shortNumberToString(input: number | undefined | null): string {
         if (input === undefined || input === null) {
-            return '';
+            return "";
         }
         if (input >= 1_000_000) {
             return `${input / 1_000_000}m`;
@@ -45,14 +45,13 @@ export class FormatterController {
     }
 
     static stringToShortNumber(input: string | undefined | null): number {
-        if (input === undefined || input === null) {
-            return 0;
-        }
         let multiplier = 1;
-        if (input.endsWith('m')) {
+        if (input === undefined || input === null) {
+            input = "0";
+        } else if (input.endsWith("m")) {
             multiplier = 1_000_000;
             input = input.slice(0, -1);
-        } else if (input.endsWith('k')) {
+        } else if (input.endsWith("k")) {
             multiplier = 1_000;
             input = input.slice(0, -1);
         }
