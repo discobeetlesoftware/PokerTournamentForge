@@ -1,66 +1,66 @@
 {
-    "name": "poker-tournament-forge",
-    "version": "0.2.1",
-    "private": true,
-    "homepage": "https://discobeetlesoftware.github.io/PokerTournamentForge",
-    "dependencies": {
-        "@mui/icons-material": "^5.14.1",
-        "@mui/material": "^5.14.2",
-        "@nivo/core": "^0.83.0",
-        "@nivo/line": "^0.83.0",
-        "@testing-library/jest-dom": "^5.17.0",
-        "@testing-library/react": "^13.4.0",
-        "@testing-library/user-event": "^13.5.0",
-        "@types/jest": "^27.5.2",
-        "@types/node": "^16.18.39",
-        "@types/react": "^18.2.17",
-        "@types/react-dom": "^18.2.7",
-        "buffer": "^6.0.3",
-        "contrast-color": "^1.0.1",
-        "idb": "^7.1.1",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-router-dom": "^6.14.2",
-        "react-scripts": "5.0.1",
-        "typescript": "^4.9.5",
-        "uuid": "^9.0.0"
-    },
-    "jest": {
-        "testMatch": [
-            "**/tests/**/*.[jt]s?(x)"
-        ]
-    },
-    "scripts": {
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build",
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-        "@trivago/prettier-plugin-sort-imports": "^4.2.0",
-        "@types/contrast-color": "^1.0.0",
-        "@types/uuid": "^9.0.2",
-        "gh-pages": "^5.0.0"
-    }
+  "name": "poker-tournament-forge",
+  "version": "0.2.1",
+  "private": true,
+  "homepage": "pokertournamentforge.discobeetle.com",
+  "dependencies": {
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.2",
+    "@nivo/core": "^0.83.0",
+    "@nivo/line": "^0.83.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.39",
+    "@types/react": "^18.2.17",
+    "@types/react-dom": "^18.2.7",
+    "buffer": "^6.0.3",
+    "contrast-color": "^1.0.1",
+    "idb": "^7.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "uuid": "^9.0.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/tests/**/*.[jt]s?(x)"
+    ]
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "@types/contrast-color": "^1.0.0",
+    "@types/uuid": "^9.0.2",
+    "gh-pages": "^5.0.0"
+  }
 }
