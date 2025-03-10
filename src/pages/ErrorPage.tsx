@@ -21,7 +21,7 @@ const ErrorView = (props: { error: Error }) => {
         const token = deleteCandidate;
         setDeleteCandidate(null);
         if (isConfirmed && token) {
-            Promise.all(token.map(table => store.table(table).clear())).catch(e => {
+            store.delete({ disableAutoOpen: false }).catch(e => {
                 console.error('Failed to delete ', token, e);
             }).finally(() => {
                 navigate('/');
