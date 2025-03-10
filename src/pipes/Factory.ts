@@ -123,7 +123,6 @@ export class Factory {
     };
 
     static DEFAULT_LEVEL: TournamentLevelPayload = {
-        id: 'new',
         type: '',
         is_keyframe: false,
         is_expected_conclusion: false,
@@ -135,7 +134,6 @@ export class Factory {
     };
 
     static level(values: Partial<TournamentLevelPayload> = {}): TournamentLevelPayload {
-        this.freshenUniquable(values);
         return {
             ...Factory.DEFAULT_LEVEL,
             ...values

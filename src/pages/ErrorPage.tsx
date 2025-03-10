@@ -7,9 +7,7 @@ import { ReactComponent as FlowersIcon } from '../assets/flowers.svg';
 import { DestroyButton } from '../views/DestroyButton';
 import { ConfirmDeleteDialog } from '../views/ConfirmDeleteDialog';
 import { useState } from 'react';
-import { PTDSchemaCurrent } from '../pipes/DataStore';
-import { StoreNames } from 'idb';
-import { clearAction } from "../pipes/PresetPipes";
+import { DataStoreTableName, store } from '../pipes/DataStore';
 
 let strings = configuration.strings.en.error;
 
@@ -17,17 +15,17 @@ const ErrorView = (props: { error: Error }) => {
     const { error } = props;
     const location = useLocation();
     const navigate = useNavigate();
-    const [deleteCandidate, setDeleteCandidate] = useState<StoreNames<PTDSchemaCurrent>[] | null>(null);
+    const [deleteCandidate, setDeleteCandidate] = useState<Array<DataStoreTableName> | null>(null);
 
     const handleDeleteDismissed = (isConfirmed: boolean) => {
         const token = deleteCandidate;
         setDeleteCandidate(null);
         if (isConfirmed && token) {
-            clearAction(token).catch(e => {
+            Promise.all(token.map(table => store.table(table).clear())).catch(e => {
                 console.error('Failed to delete ', token, e);
             }).finally(() => {
                 navigate('/');
-            })
+            });
         }
     }
     return (

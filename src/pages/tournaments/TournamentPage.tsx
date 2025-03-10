@@ -6,7 +6,7 @@ import { SecondaryBlockHeaderView } from "../../views/SecondaryHeaderView";
 import { usePageTitle } from "../../hooks/usePageTitle";
 import { TournamentLevelsView } from "../../views/tournament/TournamentLevelsView";
 import { ConfirmDeleteDialog } from "../../views/ConfirmDeleteDialog";
-import { DataStore, RouteAction } from "../../pipes/DataStore";
+import { DataStore, RouteAction, store } from "../../pipes/DataStore";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from '@mui/icons-material/Edit';
@@ -23,7 +23,6 @@ import SaveIcon from '@mui/icons-material/Save';
 import Snackbar from "@mui/material/Snackbar";
 import { useSharableLinkBuilder } from "../../hooks/useSharableLinkBuilder";
 import { FormatterController } from "../../controllers/FormatterController";
-import { putAction } from "../../pipes/DataPipes";
 
 const strings = configuration.strings.en.tournament;
 
@@ -95,8 +94,8 @@ export const TournamentPage = () => {
                             <IconButton
                                 color='secondary'
                                 onClick={() => {
-                                    putAction('tournaments', tournament).then(result => {
-                                        const route = DataStore.route('tournaments', result ? RouteAction.read : RouteAction.list, result);
+                                    store.tournaments.put(tournament).then(result => {
+                                        const route = DataStore.route('tournaments', result ? RouteAction.read : RouteAction.list, tournament);
                                         navigate(route, { replace: true });
                                     });
                                 }}

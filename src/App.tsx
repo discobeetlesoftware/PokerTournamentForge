@@ -28,7 +28,6 @@ import {
   tournamentViewLoader,
 } from "./pipes/TournamentPipes";
 import { TournamentEditPage } from "./pages/tournaments/TournamentEditPage";
-import usePresets from "./hooks/usePresets";
 import { SettingsPage } from "./pages/SettingsPage";
 import { TournamentPage } from "./pages/tournaments/TournamentPage";
 import { ChipSetEditPage } from "./pages/chipsets/ChipSetEditPage";
@@ -99,8 +98,6 @@ const routes = createRoutesFromElements(
 const router = createBrowserRouter(routes);
 
 function App() {
-  usePresets();
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

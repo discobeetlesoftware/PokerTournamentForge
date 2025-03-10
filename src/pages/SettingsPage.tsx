@@ -5,7 +5,6 @@ import HeaderView from "../views/HeaderView";
 import Paper from "@mui/material/Paper";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ConfirmDeleteDialog } from "../views/ConfirmDeleteDialog";
-import { PTDSchemaCurrent } from "../pipes/DataStore";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
@@ -14,12 +13,11 @@ import { Form, useActionData, useLoaderData, useSubmit } from "react-router-dom"
 import { SettingsPayload } from "../pipes/DataStoreSchemaV1";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import Snackbar from "@mui/material/Snackbar";
-import { clearAction } from "../pipes/PresetPipes";
-import { StoreNames } from "idb";
 import { DestroyButton } from "../views/DestroyButton";
+import { DataStoreTableName, store } from "../pipes/DataStore";
 
 export const SettingsPage = () => {
-    const [deleteCandidate, setDeleteCandidate] = useState<StoreNames<PTDSchemaCurrent>[] | null>(null);
+    const [deleteCandidate, setDeleteCandidate] = useState<Array<DataStoreTableName> | null>(null);
     const [isUpdating, setIsUpdating] = useState(false);
     const submit = useSubmit();
     const [settings, updateSettings] = useState(useLoaderData() as SettingsPayload)
@@ -34,11 +32,11 @@ export const SettingsPage = () => {
         setDeleteCandidate(null);
         if (isConfirmed && token) {
             setIsUpdating(true);
-            clearAction(deleteCandidate).catch(e => {
+            Promise.all(token.map(table => store.table(table).clear())).catch(e => {
                 console.error('Failed to delete ', token, e);
             }).finally(() => {
                 setIsUpdating(false);
-            })
+            });
         }
     };
 

@@ -1,16 +1,9 @@
-import { DBSchema } from 'idb';
-import { Storable, Uniquable } from './Storable';
-
-export const DataStoreTableNamesV1: [ 
-    keyof Pick<PTDSchemaV1, 'chipsets'>,
-    keyof Pick<PTDSchemaV1, 'tournaments'>,
-    keyof Pick<PTDSchemaV1, 'settings'>
-] = ['chipsets', 'tournaments', 'settings'];
+import { Storable, Uniquable } from "./Storable";
 
 export const TARGET_STRATEGY = {
-    STRICT: 'STRICT',
-    AGGRESSIVE: 'AGGRESSIVE',
-    MAX: 'MAX'
+    STRICT: "STRICT",
+    AGGRESSIVE: "AGGRESSIVE",
+    MAX: "MAX",
 } as const;
 type ObjectValues<T> = T[keyof T];
 export type TargetStrategy = ObjectValues<typeof TARGET_STRATEGY>;
@@ -46,7 +39,7 @@ export interface TournamentPayload extends Storable {
     levels: TournamentLevelPayload[];
 }
 
-export interface TournamentLevelPayload extends Uniquable {
+export interface TournamentLevelPayload extends Omit<Uniquable, "id"> {
     type: string;
     is_keyframe: boolean;
     is_expected_conclusion: boolean;
@@ -68,23 +61,3 @@ export interface ChipPayload extends Uniquable {
     count: number;
     color: string;
 }
-
-export interface PTDSchemaV1 extends DBSchema {
-    settings: {
-        key: string;
-        value: SettingsPayload;
-        indexes: { id: string };
-    }
-
-    chipsets: {
-        key: string;
-        value: ChipSetPayload;
-        indexes: { id: string };
-    };
-
-    tournaments: {
-        key: string;
-        value: TournamentPayload;
-        indexes: { id: string, set_id: string; }
-    }
-};

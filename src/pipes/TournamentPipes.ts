@@ -1,9 +1,8 @@
 import { ActionFunction, LoaderFunctionArgs, redirect } from "react-router-dom";
 import { chipListLoader } from "./ChipSetPipes";
-import { DataStore, RouteAction } from "./DataStore";
+import { DataStore, RouteAction, store } from "./DataStore";
 import { ChipSetPayload, SettingsPayload, TournamentPayload } from "./DataStoreSchemaV1";
 import { StorableKind, determineStorableKind } from "./Storable";
-import { deleteAction, getAction, listAction, putAction } from "./DataPipes";
 import { settingsLoader } from "./SettingsPipes";
 import { HydrationController } from "../controllers/HydrationController";
 
@@ -15,11 +14,18 @@ export type EnrichedTournamentPayload = {
 };
 
 export const tournamentListLoader = async () => {
-    return listAction('tournaments');
+    return store.tournaments.toArray();
 }
 
 export const tournamentLoader = async (args: LoaderFunctionArgs): Promise<TournamentPayload> => {
-    return getAction('tournaments', args.params.id);
+    if (!args.params.id) {
+        throw Error('Missing tournament id.');
+    }
+    let tournament = await store.tournaments.where('id').equals(args.params.id).first();
+    if (!tournament) {
+        throw Error('Failed to load tournament.');
+    }
+    return tournament;
 };
 
 const enrichedTournamentLoader = async (args: LoaderFunctionArgs, chipsetFilter?: (tournament: TournamentPayload, candidate: ChipSetPayload) => boolean): Promise<EnrichedTournamentPayload> => {
@@ -61,14 +67,17 @@ export const tournamentEditLoader = async (args: LoaderFunctionArgs) => {
 
 export const tournamentUpdateAction: ActionFunction = async ({ request }) => {
     const data = await request.json() as TournamentPayload;
-    const tournament = await putAction('tournaments', data);
-    if (!tournament) {
+    let result = await store.tournaments.put(data);
+    if (!result) {
         throw Error('Failed to update tournament');
     }
-    return redirect(DataStore.route('tournaments', RouteAction.read, tournament));
+    return redirect(DataStore.route('tournaments', RouteAction.read, data));
 };
 
 export const tournamentDeleteAction: ActionFunction = async (args) => {
-    await deleteAction('tournaments', args);
+    if (!args.params.id) {
+        throw Error('Missing tournament id.');
+    }
+    await store.tournaments.delete(args.params.id);
     return redirect(DataStore.route('tournaments', RouteAction.list));
 };

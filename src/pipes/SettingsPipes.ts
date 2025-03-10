@@ -1,11 +1,12 @@
 import { ActionFunction, redirect } from "react-router-dom";
 import { SettingsPayload } from "./DataStoreSchemaV1";
-import { generate, listAction, putAction } from "./DataPipes";
+import { populateAction, store } from "./DataStore";
 
 export const settingsLoader = async (): Promise<SettingsPayload> => {
-    const settings = await listAction('settings');
+    const settings = await store.settings.toArray();
     if (settings.length === 0) {
-        return generate('settings');
+        await populateAction(['settings']);
+        return settings[0];
     }
     if (settings.length > 1) {
         console.error('Loaded more than one settings object.', settings);
@@ -15,7 +16,7 @@ export const settingsLoader = async (): Promise<SettingsPayload> => {
 
 export const settingsUpdateAction: ActionFunction = async ({ request }) => {
     const data = await request.json() as SettingsPayload;
-    const result = await putAction('settings', data);
+    const result = await store.settings.put(data);
     if (!result) {
         throw Error('Failed to update settings');
     }
