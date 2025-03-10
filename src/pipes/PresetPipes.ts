@@ -1,6 +1,6 @@
 import { ChipSetPayload, TournamentPayload } from "../pipes/DataStoreSchemaV1";
 import { Factory } from "../pipes/Factory";
-import { DataStore, DataStoreTableName, store } from "../pipes/DataStore";
+import { DataStoreTableName } from "../pipes/DataStore";
 import { Color } from "../models/Color";
 import { Storable } from "./Storable";
 

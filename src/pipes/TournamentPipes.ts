@@ -35,7 +35,7 @@ const enrichedTournamentLoader = async (args: LoaderFunctionArgs, chipsetFilter?
     return {
         kind: determineStorableKind(tournament),
         tournament: tournament,
-        settings: settings,
+        settings: settings.settings,
         chipsets: chipsetFilter ? chipsets.filter((chipset => {
             return chipsetFilter(tournament, chipset);
         })) : chipsets,
